@@ -18,7 +18,7 @@
 			</c:otherwise>
 		</c:choose>
 	</c:if>
-	<form action="AddPost" method="POST">
+	<form action="NewPost" method="POST">
 		<input name="title"/><br/>
 		<input name="author"/><br/>
 		<textarea name="content"></textarea>

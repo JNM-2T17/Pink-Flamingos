@@ -15,6 +15,7 @@ import model.PostManager;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,14 +30,14 @@ public class TheController {
 		request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);
 	}
 	
-	@RequestMapping("/NewPost")
+	@RequestMapping(value="/NewPost",method=RequestMethod.GET)
 	public void newPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request, response);
 	}
 	
-	@RequestMapping("/AddPost")
+	@RequestMapping(value="/NewPost",method=RequestMethod.POST)
 	@ResponseBody
-	public void addPost(@RequestParam(value="title") String title,
+	public void newPost(@RequestParam(value="title") String title,
 						@RequestParam(value="author") String author,
 						@RequestParam(value="content") String content,
 						HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
