@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Post;
 import model.PostManager;
 
 import org.springframework.stereotype.Controller;
@@ -50,5 +51,24 @@ public class TheController {
 			request.setAttribute("content", content);
 		}
 		request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request,response);
+	}
+	
+	@RequestMapping("/Posts")
+	public void posts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//get posts
+		ArrayList<Post> posts = PostManager.getPosts(1);		
+		
+		request.setAttribute("posts", posts);
+		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request,response);
+	}
+	
+	@RequestMapping("/getPosts")
+	@ResponseBody
+	public void getPosts(@RequestParam(value="pageNo") int pageNo, 
+						HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//access DAO to get posts
+		ArrayList<Post> result = PostManager.getPosts(pageNo);
+		
+		response.getWriter().print((new Gson()).toJson(result));
 	}
 }
