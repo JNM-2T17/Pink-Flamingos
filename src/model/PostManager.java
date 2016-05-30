@@ -44,10 +44,33 @@ public class PostManager {
 				String content = rs.getString("content");
 				
 				//truncate content
+				String[] array = content.split(" ");
 				
+				int numChar = 0;
+				int i=0;
+				StringBuilder sb = new StringBuilder();
 				
+				if(array.length != 0)
+				while(numChar + array[i].length() <= 150)
+				{
+					sb.append(array[i] + " ");
+					numChar = numChar + array[i].length() + 1;
+					i++;
+					
+					if(i == array.length)
+						break;
+				}
+				
+				int remainingChar = 150-numChar;
+				
+				if(i < array.length)
+				if(remainingChar >= array[i].length()/2)
+				{
+					sb.append(array[i]);
+				}
+
 				Post p = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("author")
-									,content);
+									,sb.toString());
 				posts.add(p);
 			}
 			
