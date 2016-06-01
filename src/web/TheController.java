@@ -31,6 +31,11 @@ public class TheController {
 		request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);
 	}
 	
+	@RequestMapping("/AboutUs")
+	public void aboutUs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("WEB-INF/view/aboutUs.jsp").forward(request, response);
+	}
+	
 	@RequestMapping(value="/NewPost",method=RequestMethod.GET)
 	public void newPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request, response);
