@@ -28,7 +28,11 @@ import dao.DBManager;
 public class TheController {
 	@RequestMapping("/")
 	public void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/index.jsp").forward(request, response);
+		//get posts
+		ArrayList<Post> posts = PostManager.getPosts(1);		
+		
+		request.setAttribute("posts", posts);
+		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request,response);
 	}
 	
 	@RequestMapping("/AboutUs")
@@ -56,15 +60,6 @@ public class TheController {
 			request.setAttribute("content", content);
 		}
 		request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request,response);
-	}
-	
-	@RequestMapping("/Posts")
-	public void posts(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//get posts
-		ArrayList<Post> posts = PostManager.getPosts(1);		
-		
-		request.setAttribute("posts", posts);
-		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request,response);
 	}
 	
 	@RequestMapping("/getPosts")
