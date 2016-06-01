@@ -29,7 +29,7 @@ CREATE TABLE `ag_comment` (
   `post_id` int(11) NOT NULL,
   `author` varchar(45) NOT NULL,
   `content` text NOT NULL,
-  `dateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateAdded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `commentfk_1` (`post_id`),
@@ -58,7 +58,7 @@ CREATE TABLE `ag_post` (
   `title` varchar(45) NOT NULL,
   `author` varchar(45) NOT NULL,
   `content` text NOT NULL,
-  `dateAdded` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateAdded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
@@ -70,7 +70,7 @@ CREATE TABLE `ag_post` (
 
 LOCK TABLES `ag_post` WRITE;
 /*!40000 ALTER TABLE `ag_post` DISABLE KEYS */;
-INSERT INTO `ag_post` VALUES (1,'Test','Austin','This is a test','2016-05-27 20:25:18',1),(2,'Test','Austin','This is a test','2016-05-27 20:26:52',1),(3,'Test2','Austin Again','Lol','2016-05-27 23:36:41',1),(4,'Gusto ko ng kamatis','Rissa Quindoza','I want kamatis. Kamatis is good','2016-05-30 16:14:07',1),(5,'Gusto ko bumutas','Angelo Matias','Ako ay bubutas ng bagay na maibubutas ng aking pambutas.','2016-05-30 16:14:30',1),(6,'Ako ay matutulog','Kenneth Wang','Antok na ako. Matutulog ako. <3','2016-05-30 16:14:46',1);
+INSERT INTO `ag_post` VALUES (1,'Test','Austin','This is a test','2016-05-27 12:25:18',1),(2,'Test','Austin','This is a test','2016-05-27 12:26:52',1),(3,'Test2','Austin Again','Lol','2016-05-27 15:36:41',1),(4,'Gusto ko ng kamatis','Rissa Quindoza','I want kamatis. Kamatis is good','2016-05-30 08:14:07',1),(5,'Gusto ko bumutas','Angelo Matias','Ako ay bubutas ng bagay na maibubutas ng aking pambutas.','2016-05-30 08:14:30',1),(6,'Ako ay matutulog','Kenneth Wang','Antok na ako. Matutulog ako. <3','2016-05-30 08:14:46',1);
 /*!40000 ALTER TABLE `ag_post` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -83,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-30 16:18:11
+-- Dump completed on 2016-06-01 20:30:58
