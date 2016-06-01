@@ -1,3 +1,3 @@
 Suggestions:
-1. Remove change post button in about us page
+1. Remove create post button in about us page
 2. Return to the home page after adding a post
