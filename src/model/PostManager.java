@@ -9,6 +9,24 @@ import java.util.ArrayList;
 import dao.DBManager;
 
 public class PostManager {
+	public static int getPostCount() {
+		try {
+			Connection con = DBManager.getInstance().getConnection();
+			String sql = "SELECT COUNT(id) postCount " 
+						+ "FROM ag_post "
+						+ "WHERE status = 1 ";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			if( rs.next() ) {
+				return rs.getInt("postCount");
+			}
+		} catch( SQLException se ) {
+			se.printStackTrace();
+		}
+		return 0;
+	}
+	
 	public static boolean addPost(String title, String author, String content) {
 		try {
 			Connection c = DBManager.getInstance().getConnection();
@@ -16,7 +34,7 @@ public class PostManager {
 			PreparedStatement ps = c.prepareStatement(sql);
 			ps.setString(1,title);
 			ps.setString(2,author);
-			ps.setString(3,content);
+			ps.setString(3,content.replaceAll("\n","<br/>"));
 			ps.executeUpdate();
 			c.close();
 		} catch(SQLException se) {
@@ -70,7 +88,7 @@ public class PostManager {
 				}
 
 				Post p = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("author")
-									,sb.toString());
+									,sb.toString().replaceAll("\n","<br/>"));
 				posts.add(p);
 			}
 			

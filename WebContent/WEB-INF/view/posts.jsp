@@ -17,6 +17,11 @@
 
 					<hr>
 	</c:forEach>
-				</div>
+		<span id="bottomSpan"><a id="loadMore">Load More</a></span>
+	</div>
+	
+	<input type="hidden" id="postCtr" value="${postCtr }" />
+	<script src="<c:url value="/resources/assets/js/posts.js" />"></script>
+				
 <jsp:include page="sidebar.jsp"/>
 <jsp:include page="footer.jsp"/>

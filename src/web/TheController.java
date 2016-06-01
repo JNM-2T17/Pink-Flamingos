@@ -23,8 +23,10 @@ public class TheController {
 	@RequestMapping("/")
 	public void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//get posts
+		int postCtr = PostManager.getPostCount();
 		ArrayList<Post> posts = PostManager.getPosts(1);		
 		
+		request.setAttribute("postCtr", postCtr);
 		request.setAttribute("posts", posts);
 		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request,response);
 	}
