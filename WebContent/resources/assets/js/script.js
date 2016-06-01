@@ -20,6 +20,4 @@ function checkScroll(){
 		$('#header').css('height', '140px');
 		console.log("else " + $('#header').css('height'));
 	}
-
-    $('h1').css('bottom', (410 - parseInt($('#header').css('height'))) + 'px');
 }

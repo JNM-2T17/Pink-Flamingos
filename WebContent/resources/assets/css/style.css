@@ -42,7 +42,7 @@ div#header {
     display: block;
     margin: 0 auto;
     width: 820px;
-    height: 400px;
+    height: inherit;
     text-decoration: none;
     color: #FFF;
     text-align: left;

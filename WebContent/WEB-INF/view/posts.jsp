@@ -12,8 +12,8 @@
 
 						<p>${post.content }</p>
 
-						<a href="/ViewPost&id=${post.id }" class="read-more">Read More</a>
-					</div>
+<%-- 						<a href="/ViewPost&id=${post.id }" class="read-more">Read More</a>
+ --%>					</div>
 
 					<hr>
 	</c:forEach>
