@@ -2,13 +2,21 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp"/>
-<body>
+				<div id="content">
 	<c:forEach items="${posts }" var="post">
-		<div>
-			<h1><a href="/ViewPost&id=${post.id }">${post.title }</a></h1>
-			<h2>${post.author }</h2>
-			<p>${post.content }</p>
-		</div>
+					<div class="post">
+						<h3>${post.title }</h3>
+						<div class="post-info">
+							${post.author }
+						</div>
+
+						<p>${post.content }</p>
+
+						<a href="/ViewPost&id=${post.id }" class="read-more">Read More</a>
+					</div>
+
+					<hr>
 	</c:forEach>
-</body>
-</html>
+				</div>
+<jsp:include page="sidebar.jsp"/>
+<jsp:include page="footer.jsp"/>
