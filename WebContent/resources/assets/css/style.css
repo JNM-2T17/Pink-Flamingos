@@ -95,7 +95,8 @@ div#main-container {
           background-color: rgba(250, 180, 0, 0.5); }
       div#main-container div#main div#content div.post-info {
         text-transform: lowercase;
-        font-size: 0.9em; }
+        font-size: 0.9em;
+        color: #999; }
     div#main-container div#main div#content-full {
       width: 100%; }
       div#main-container div#main div#content-full textarea.form-textarea {
