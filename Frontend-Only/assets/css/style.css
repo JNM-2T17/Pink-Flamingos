@@ -125,12 +125,6 @@ div#main-container {
 
 .action-button:hover {
   background-color: rgba(250, 180, 0, 0.5); }
-  
-div.status {
-    text-transform: lowercase;
-    font-size: 0.9em;
-    margin: 10px 0;
-    color: #999; }
 
 div.clear {
   clear: both; }

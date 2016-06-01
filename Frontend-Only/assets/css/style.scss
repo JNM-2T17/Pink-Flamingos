@@ -1,0 +1,184 @@
+$header-height: 400px;
+$main-width:    800px;
+$content-width: 600px;
+$sidebar-width: 200px;
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/Raleway-Regular.ttf');
+}
+
+body{
+	font-family: Raleway;
+	text-align: center;
+	margin: 0;
+}
+
+div#topbar{
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 30;
+	background-color: rgba(40, 40, 40, 0.8);
+
+	ul#topnav{
+		list-style: none;
+		text-align: right;
+		padding: 0 10px 0 0;
+		margin: 0;
+
+		li{
+			display: inline-block;
+			padding: 14px 12px;
+
+			a{
+				color: #FFF;
+				text-decoration: none;
+				text-transform: lowercase;
+			}
+
+			a:hover{
+				color: orange;
+			}
+		}
+	}
+}
+
+div#header{
+	width: 100%;
+	height: $header-height;
+	background: url('../img/header.png') center -100px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 400px;
+	z-index: 20px;
+
+	a{
+		display: block;
+		margin: 0 auto;
+		width: $main-width + 20;
+		height: $header-height;
+		text-decoration: none;
+		color: #FFF;
+		text-align: left;
+		position: relative;
+	}
+}
+
+h1{
+	text-transform: uppercase;
+	text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+	position: absolute;
+	left: 0;
+	bottom: 10px;
+	font-size: 3.5em;
+	margin: 0;
+	z-index: 10;
+}
+
+h1:hover{
+	text-shadow: 2px 2px rgba(250, 180, 0, 0.5);
+}
+
+div#main-container{
+	width: 100%;
+	background-color: #FFF;
+	position: absolute;
+	top: $header-height;
+	left: 0;
+	z-index: -1;
+
+	div#main{
+		margin: 0 auto;
+		padding: 0 10px;
+		width: $main-width;
+		text-align: left;
+		border-left: 2px solid rgb(230, 220, 220); 
+		border-right: 2px solid rgb(230, 220, 220); 
+
+		h3{
+			font-size: 1.6em;
+			color: orange;
+			margin: 5px 0 10px;
+		}
+
+		div#content{
+			float: left;
+			width: $content-width;
+
+			div.post{
+				padding: 10px;
+
+				a.read-more{
+					font-size: 0.9em;
+					text-decoration: none;
+					color: #999;
+					text-transform: lowercase;
+					padding: 5px;
+					margin-left: -5px;
+				}
+
+				a.read-more:hover{
+					background-color: rgba(250, 180, 0, 0.5);
+				}
+			}
+
+			div.post-info{
+				text-transform: lowercase;
+				font-size: 0.9em;
+			}
+		}
+
+		div#content-full{
+			width: 100%;
+
+			textarea.form-textarea{
+				width: $main-width - 6;
+				overflow: auto;
+				resize: vertical;
+				border: 1.5px solid #000;
+			}
+
+			textarea.title-textarea{
+				height: 20px;
+			}
+
+			textarea.text-textarea{
+				height: 200px;
+			}
+		}
+
+		div#sidebar{
+			float: left;
+			width: $sidebar-width;
+		}
+	}
+}
+
+.action-button{
+	color: orange;
+	text-decoration: none;
+	margin: 10px;
+	padding: 5px;
+	display: block;
+	text-transform: lowercase;
+	background-color: transparent;
+	border: none;
+	font-family: Raleway;
+	font-size: 1em;
+}
+
+.action-button:hover{
+	background-color: rgba(250, 180, 0, 0.5);
+}
+
+div.clear{
+	clear: both;
+}
+
+hr{
+	border: 0.5px solid rgb(180, 170, 170);
+}
