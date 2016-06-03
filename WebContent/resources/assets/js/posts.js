@@ -24,7 +24,7 @@ $(document).ready(function() {
 							"</div>" + 
 							"<p>" + post.content + "</p>" + 
 
-							//"<a href=\"/ViewPost&id=" + post.id + "\" class=\"read-more\">Read More</a>" +
+							"<a href=\"/Pink_Flamingos/ViewPost?id=" + post.id + "\" class=\"read-more\">Read More</a>" +
 						"</div><hr/>");
 				}	
 			}

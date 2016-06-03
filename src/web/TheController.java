@@ -67,4 +67,31 @@ public class TheController {
 		
 		response.getWriter().print((new Gson()).toJson(result));
 	}
+	
+	@RequestMapping("/ViewPost")
+	public void viewPost(@RequestParam(value="id") int id,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//TODO: load post here
+		
+		request.getRequestDispatcher("WEB-INF/view/viewPost.jsp").forward(request,response);
+	}
+	
+	@RequestMapping("/LoadComments")
+	@ResponseBody
+	public void loadComments(   @RequestParam(value="postId") int postId,
+								@RequestParam(value="pageNo") int pageNo,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+	
+	@RequestMapping("/AddComment")
+	@ResponseBody
+	public void addComment( @RequestParam(value="postId") int postId,
+							@RequestParam(value="author") String author,
+							@RequestParam(value="comment") String comment,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+	}
 }
