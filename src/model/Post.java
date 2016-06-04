@@ -5,6 +5,7 @@ public class Post {
 	private String title;
 	private String author;
 	private String content;
+	private Comment topComment;
 	
 	
 	public Post() {
@@ -45,6 +46,14 @@ public class Post {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public Comment getTopComment() {
+		return topComment;
+	}
+
+	public void setTopComment(Comment topComment) {
+		this.topComment = topComment;
+	}
+
 	
 	
 }

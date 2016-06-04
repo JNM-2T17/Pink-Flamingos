@@ -14,19 +14,29 @@ $(document).ready(function() {
 			},
 			dataType : "json",
 			success : function(a) {
+				var html = "";
 				for(x in a ) {
 					var post = a[x];
 					console.log("inserting");
-					$("#bottomSpan").before("<div class=\"post\">\n" + 
-							"<h3>" + post.title + "</h3>" + 
-							"<div class=\"post-info\">" + 
-								post.author + 
-							"</div>" + 
-							"<p>" + post.content + "</p>" + 
+					html += "<div class=\"post\">\n" + 
+					"<h3>" + post.title + "</h3>" + 
+					"<div class=\"post-info\">" + 
+						post.author + 
+					"</div>" + 
+					"<p>" + post.content + "</p>" + 
 
-							//"<a href=\"/ViewPost&id=" + post.id + "\" class=\"read-more\">Read More</a>" +
-						"</div><hr/>");
+					"<a href=\"/Pink_Flamingos/ViewPost?id=" + post.id + "\" class=\"read-more\">Read More</a>";
+					var com = post.topComment;
+					if( com ) {
+						html += "<div class=\"commentBox\">" + 
+						"<h5>" + com.author + "</h5>" + 
+						"<h6>" + com.date + "</h6>" + 
+						"<p>" + com.content + "</p>" + 
+						"</div>";
+					}
+					html += "</div><hr/>";
 				}	
+				$("#bottomSpan").before(html);
 			}
 		});
 		

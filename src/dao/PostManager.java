@@ -1,4 +1,4 @@
-package model;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.DBManager;
+import model.Comment;
+import model.Post;
 
 public class PostManager {
 	public static int getPostCount() {
@@ -44,7 +45,7 @@ public class PostManager {
 		return true;
 	}
 	
-	public static ArrayList<Post> getPosts(int pageNo) {
+	public static Post[] getPosts(int pageNo) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();
 			String sql = "SELECT id, title, author, content " 
@@ -89,10 +90,23 @@ public class PostManager {
 
 				Post p = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("author")
 									,sb.toString().replaceAll("\n","<br/>"));
+				sql = "SELECT id, author, content, dateAdded "
+						+ "FROM ag_comment "
+						+ "WHERE post_id = ? "
+						+ "ORDER BY dateAdded DESC "
+						+ "LIMIT 1";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, p.getId());
+				ResultSet rs2 = ps.executeQuery();
+				if( rs2.next() ) {
+					Comment c = new Comment(rs2.getInt("id"),rs2.getString("author")
+										,rs2.getString("content"),rs2.getTimestamp("dateAdded"));
+					p.setTopComment(c);
+				}
 				posts.add(p);
 			}
 			
-			return posts;
+			return posts.toArray(new Post[0]);
 		} catch( SQLException se ) {
 			se.printStackTrace();
 		}

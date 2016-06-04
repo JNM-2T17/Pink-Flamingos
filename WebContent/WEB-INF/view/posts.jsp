@@ -12,8 +12,16 @@
 
 						<p>${post.content }</p>
 
-<%-- 						<a href="/ViewPost&id=${post.id }" class="read-more">Read More</a>
- --%>					</div>
+	 						<a href="/Pink_Flamingos/ViewPost?id=${post.id }" class="read-more">Read More</a>
+	 					<c:if test="${not empty post.topComment }">
+	 					<div class="commentBox">
+	 						<c:set var="com" value="${post.topComment }" />
+	 						<h5>${com.author }</h5>
+	 						<h6>${com.date }</h6>
+	 						<p>${com.content }</p>
+	 					</div>
+	 					</c:if>
+ 					</div>
 
 					<hr>
 	</c:forEach>
