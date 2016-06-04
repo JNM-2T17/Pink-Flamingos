@@ -7,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Comment;
 import model.Post;
-import model.PostManager;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import dao.CommentManager;
+import dao.PostManager;
+
 @Controller
 public class TheController {
 	@RequestMapping("/")
 	public void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//new posts retrieval
 		int postCtr = PostManager.getPostCount();
-		ArrayList<Post> posts = PostManager.getPosts(1);		
+		Post[] posts = PostManager.getPosts(1);		
 		
 		request.setAttribute("postCtr", postCtr);
 		request.setAttribute("posts", posts);
@@ -63,7 +66,7 @@ public class TheController {
 	public void getPosts(@RequestParam(value="pageNo") int pageNo, 
 						HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//access DAO to get posts
-		ArrayList<Post> result = PostManager.getPosts(pageNo);
+		Post[] result = PostManager.getPosts(pageNo);
 		
 		response.getWriter().print((new Gson()).toJson(result));
 	}
@@ -74,6 +77,12 @@ public class TheController {
 		
 		//TODO: load post here
 		
+		int commentCtr = CommentManager.commentCount(id);
+		
+		//TEMPORARY
+		request.setAttribute("postId", id);
+		request.setAttribute("commentCtr", commentCtr);
+		
 		request.getRequestDispatcher("WEB-INF/view/viewPost.jsp").forward(request,response);
 	}
 	
@@ -81,8 +90,16 @@ public class TheController {
 	@ResponseBody
 	public void loadComments(   @RequestParam(value="postId") int postId,
 								@RequestParam(value="pageNo") int pageNo,
+								@RequestParam(value="idCap") int idCap,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Comment[] comments;
+		if( idCap == -1) {
+			comments = CommentManager.getComments(postId,pageNo);
+		} else {
+			comments = CommentManager.getComments(postId, pageNo, idCap);
+		}
 		
+		response.getWriter().print((new Gson()).toJson(comments));
 	}
 	
 	@RequestMapping("/AddComment")
@@ -91,7 +108,8 @@ public class TheController {
 							@RequestParam(value="author") String author,
 							@RequestParam(value="comment") String comment,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Comment c = CommentManager.addComment(postId, author, comment);
 		
-		
+		response.getWriter().print((new Gson()).toJson(c));
 	}
 }

@@ -4,7 +4,9 @@
 
 <jsp:include page="header.jsp"/>
 	<div id="mainContent">
-		<input id="postId" type="hidden" />
+		<!-- temporary -->
+		<input id="postId" type="hidden" value="${postId }"/>
+		<input id="commentCtr" type="hidden" value="${commentCtr }"/>
 		<h2>Title</h2>
 		<h3>Author</h3>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel pulvinar mauris, in porta arcu. Nunc faucibus nec ipsum vel efficitur. Donec malesuada elit ipsum, vel finibus mauris malesuada vitae. Suspendisse auctor placerat libero in ullamcorper. Nulla eu ipsum elit. Cras ut ipsum id nisi consequat ultrices commodo non justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam in enim placerat, hendrerit turpis eget, posuere felis. Nullam pulvinar nibh vel nibh cursus varius. Suspendisse consectetur et risus quis tincidunt.
@@ -25,7 +27,7 @@
 				<button id="postComment">Post Comment</button>
 			</div>
 			<div id="commentList">
-				<a id="loadMore">Load More</a>
+				<span id="bottomSpan"><a id="loadMore">Load More</a></span>
 			</div>
 		</div>
 	</div>
