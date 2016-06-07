@@ -45,6 +45,37 @@ public class PostManager {
 		return true;
 	}
 	
+	public static Post getPost(int id)
+	{
+		Post post = null;
+		
+		try {
+		
+		Connection con = DBManager.getInstance().getConnection();
+		String sql = "SELECT id, title, author, content "
+					+ "FROM ag_post "
+					+ "WHERE id = ?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, id);
+		
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		post = new Post();
+		post.setId(id);
+		post.setAuthor(rs.getString("author"));
+		post.setTitle(rs.getString("title"));
+		post.setContent(rs.getString("content"));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return post;
+					
+	}
+	
 	public static Post[] getPosts(int pageNo) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();

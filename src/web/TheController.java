@@ -78,10 +78,14 @@ public class TheController {
 		//TODO: load post here
 		
 		int commentCtr = CommentManager.commentCount(id);
+		Post post = PostManager.getPost(id);
 		
 		//TEMPORARY
 		request.setAttribute("postId", id);
 		request.setAttribute("commentCtr", commentCtr);
+		request.setAttribute("postTitle", post.getTitle());
+		request.setAttribute("postAuthor", post.getAuthor());
+		request.setAttribute("postContent", post.getContent());
 		
 		request.getRequestDispatcher("WEB-INF/view/viewPost.jsp").forward(request,response);
 	}
