@@ -5,11 +5,11 @@
 <jsp:include page="header.jsp"/>
 	<div id="mainContent">
 		<!-- temporary -->
-		<input id="postId" type="hidden" value="${postId }"/>
+		<input id="postId" type="hidden" value="${post.id }"/>
 		<input id="commentCtr" type="hidden" value="${commentCtr }"/>
-		<h2>${postTitle }</h2>
-		<h3>${postAuthor }</h3>
-		<p>${postContent }</p>
+		<h2>${post.title }</h2>
+		<h3>${post.author }</h3>
+		<p>${post.content }</p>
 	
 		<script src="<c:url value="resources/assets/js/viewPost.js"/>"></script>
 		<div id="comments">

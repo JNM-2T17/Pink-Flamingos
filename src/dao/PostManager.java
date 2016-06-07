@@ -51,22 +51,19 @@ public class PostManager {
 		
 		try {
 		
-		Connection con = DBManager.getInstance().getConnection();
-		String sql = "SELECT id, title, author, content "
-					+ "FROM ag_post "
-					+ "WHERE id = ?";
-
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, id);
-		
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		post = new Post();
-		post.setId(id);
-		post.setAuthor(rs.getString("author"));
-		post.setTitle(rs.getString("title"));
-		post.setContent(rs.getString("content"));
-
+			Connection con = DBManager.getInstance().getConnection();
+			String sql = "SELECT id, title, author, content, dateAdded "
+						+ "FROM ag_post "
+						+ "WHERE id = ? AND status = 1";
+	
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			post = new Post(id,rs.getString("title"),rs.getString("author")
+							,rs.getString("content")
+							,rs.getTimestamp("dateAdded"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
