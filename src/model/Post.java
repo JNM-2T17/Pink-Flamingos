@@ -1,23 +1,35 @@
 package model;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Post {
 	private int id;
 	private String title;
 	private String author;
 	private String content;
 	private Comment topComment;
+	private String date;
 	
 	
 	public Post() {
 		super();
 	}
 
-	public Post(int id, String title, String author, String content) {
+	public Post(int id, String title, String author, String content,Timestamp date) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.content = content;
+		Date d = null;
+		if( date != null ) {
+			d = new Date(date.getTime());
+		}
+		DateFormat df = new SimpleDateFormat("hh:mm aa, MMMM dd, yyyy");
+		this.date = df.format(d);
 	}
 	
 	public int getId() {
@@ -54,6 +66,11 @@ public class Post {
 		this.topComment = topComment;
 	}
 
-	
-	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 }

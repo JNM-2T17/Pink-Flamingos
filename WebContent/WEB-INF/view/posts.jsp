@@ -7,7 +7,8 @@
 					<div class="post">
 						<h3>${post.title }</h3>
 						<div class="post-info">
-							${post.author }
+							${post.author }<br/>
+							${post.date }
 						</div>
 
 						<p>${post.content }</p>

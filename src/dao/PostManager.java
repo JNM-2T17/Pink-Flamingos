@@ -48,7 +48,7 @@ public class PostManager {
 	public static Post[] getPosts(int pageNo) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();
-			String sql = "SELECT id, title, author, content " 
+			String sql = "SELECT id, title, author, content,dateAdded " 
 						+ "FROM ag_post "
 						+ "WHERE status = 1 "
 						+ "ORDER BY dateAdded DESC "
@@ -89,7 +89,7 @@ public class PostManager {
 				}
 
 				Post p = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("author")
-									,sb.toString().replaceAll("\n","<br/>"));
+									,sb.toString().replaceAll("\n","<br/>"),rs.getTimestamp("dateAdded"));
 				sql = "SELECT id, author, content, dateAdded "
 						+ "FROM ag_comment "
 						+ "WHERE post_id = ? "
