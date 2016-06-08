@@ -5,6 +5,6 @@
 				<div id="content">
 						<h3>About Us</h3>
 
-						<p>Pogi si Kanga</p>
+						<p>Pogi si Kenneth Wang</p>
 				</div>
 <jsp:include page="footer.jsp"/>
