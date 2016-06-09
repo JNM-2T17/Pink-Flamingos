@@ -1,7 +1,7 @@
 var postId = 0;
-var pageNo = 1;
+var pageNo = 0;
 var idCap = -1;
-var maxPage = 1000;
+var maxPage = 0;
 $(document).ready(function() {
 	postId = $("#postId").val() * 1;
 	maxPage = Math.ceil($("#commentCtr").val() / 5.0);
@@ -49,18 +49,13 @@ $(document).ready(function() {
 		}
 	});
 	
-	loadPosts(pageNo);
+	loadMore();
 	
-	$("#loadMore").click(function() {
-		pageNo++;
-		loadPosts(pageNo);
-		if( pageNo == maxPage ) {
-			$("#loadMore").remove();
-		}
-	});
+	$("#loadMore").click(loadMore);
 });
 
-function loadPosts(pageNo) {
+function loadMore() {
+	pageNo++;
 	$.ajax({
 		url : "LoadComments",
 		method : "POST",
@@ -88,4 +83,9 @@ function loadPosts(pageNo) {
 			$("#bottomSpan").before(html);
 		} 
 	});
+//	console.log(maxPage + " " + pageNo);
+	
+	if( pageNo >= maxPage ) {
+		$("#loadMore").remove();
+	}
 }

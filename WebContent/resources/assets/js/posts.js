@@ -39,8 +39,14 @@ $(document).ready(function() {
 			}
 		});
 		
-		if( pageNo == maxPage ) {
-			$("#loadMore").remove();
-		}
+		checkPage();
 	});
+	
+	checkPage();
 });
+
+function checkPage() {
+	if( pageNo >= maxPage ) {
+		$("#loadMore").remove();
+	}
+}
