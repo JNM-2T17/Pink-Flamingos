@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <jsp:include page="header.jsp"/>
-	
+	<script src="<c:url value="/resources/assets/js/newPost.js" />"></script>
 				<div id="content-full">
 					<h3>Create Post</h3>
 					
@@ -22,15 +22,15 @@
 						</c:choose>
 					</c:if>
 					</div>
-					<form action="NewPost" method="POST">
+					<form action="NewPost" method="POST" onSubmit="return checkInput();">
 						<div class="form-desc">title</div>
-						<textarea name="title" class="form-textarea title-textarea"></textarea>
+						<textarea id="title" name="title" class="form-textarea title-textarea"></textarea>
 						<hr>
 						<div class="form-desc">author</div>
-						<textarea name="author" class="form-textarea title-textarea"></textarea>
+						<textarea id="author" name="author" class="form-textarea title-textarea"></textarea>
 						<hr>
 						<div class="form-desc">text</div>
-						<textarea name="content" class="form-textarea text-textarea"></textarea>
+						<textarea id="content" name="content" class="form-textarea text-textarea"></textarea>
 						<hr>
 						<button class="action-button" type="submit"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Submit</button>
 					</form>

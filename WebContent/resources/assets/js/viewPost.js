@@ -9,15 +9,16 @@ $(document).ready(function() {
 	$("#postComment").click(function() {
 		var author = $("#author").val();
 		var comment = $("#commentArea").val();
-		if( author.length == 0 || comment.length == 0 ) {
-			var message = "";
-			if( author.length == 0 ) {
-				message += "Author cannot be empty.";
-			}
-			
-			if( comment.length == 0 ) {
-				message += (message.length == 0 ? "" : "\n") + "Comment cannot be empty";
-			}
+		var message = "";
+		
+		if( checkStrEmpty(author) || author.length == 0 ) {
+			message += "Author cannot be empty.";
+		}
+		
+		if( checkStrEmpty(comment) || comment.length == 0 ) {
+			message += (message.length == 0 ? "" : "\n") + "Comment cannot be empty";
+		}
+		if( message.length > 0 ) {
 			//change this to modal
 			alert(message);
 		} else {
@@ -36,8 +37,8 @@ $(document).ready(function() {
 						$("#commentArea").val("");
 						//TODO: prepend html for comment
 						$("#commentList").prepend("<div class=\"comment\">" + 
-													"<h5>" + a.author + "</h5>" + 
-													"<h6>" + a.date + "</h6>" +
+													"<span class=\"comment-author\">" + a.author + "</span> &bull; " + 
+													"<span class=\"comment-date\">" + a.date + "</span>" +
 													"<p>" + a.content + "</p>" + 
 													"</div>");
 					} else {
@@ -79,10 +80,10 @@ function loadPosts(pageNo) {
 				}
 				
 				html += "<div class=\"comment\">" + 
-				"<h5>" + com.author + "</h5>" + 
-				"<h6>" + com.date + "</h6>" +
-				"<p>" + com.content + "</p>" + 
-				"</div>";
+													"<span class=\"comment-author\">" + com.author + "</span> &bull; " + 
+													"<span class=\"comment-date\">" + com.date + "</span>" +
+													"<p>" + com.content + "</p>" + 
+													"</div>";
 			}
 			$("#bottomSpan").before(html);
 		} 
