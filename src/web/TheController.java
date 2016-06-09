@@ -57,8 +57,10 @@ public class TheController {
 			request.setAttribute("title",title);
 			request.setAttribute("author", author);
 			request.setAttribute("content", content);
+			request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request,response);
+		} else {
+			home(request,response);
 		}
-		request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request,response);
 	}
 	
 	@RequestMapping("/getPosts")
