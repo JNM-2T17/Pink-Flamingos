@@ -1,0 +1,310 @@
+$header-height: 400px;
+$main-width:    800px;
+$content-width: 600px;
+$sidebar-width: 200px;
+
+$color1: orange;
+$color1-faded: rgba(250, 180, 0, 0.5);
+$color2: #999;
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/Raleway-Regular.ttf');
+}
+
+body{
+	font-family: Raleway;
+	text-align: center;
+	margin: 0;
+}
+
+div#topbar{
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 30;
+	background-color: rgba(40, 40, 40, 0.8);
+
+	ul#topnav{
+		list-style: none;
+		text-align: right;
+		padding: 0 10px 0 0;
+		margin: 0;
+
+		li{
+			display: inline-block;
+			padding: 14px 12px;
+
+			a{
+				color: #FFF;
+				text-decoration: none;
+				text-transform: lowercase;
+			}
+
+			a:hover{
+				color: $color1;
+			}
+		}
+	}
+}
+
+div#header{
+	width: 100%;
+	height: $header-height;
+	background: url('../img/header.png') center -100px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 400px;
+	z-index: 20px;
+
+	a{
+		display: block;
+		margin: 0 auto;
+		width: $main-width + 20;
+		height: inherit;
+		text-decoration: none;
+		color: #FFF;
+		text-align: left;
+		position: relative;
+	}
+}
+
+h1{
+	text-transform: uppercase;
+	text-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+	position: absolute;
+	left: 0;
+	bottom: 10px;
+	font-size: 3.5em;
+	margin: 0;
+	z-index: 10;
+}
+
+h1:hover{
+	text-shadow: 2px 2px rgba(250, 180, 0, 0.5);
+}
+
+div#main-container{
+	width: 100%;
+	background-color: #FFF;
+	position: absolute;
+	top: $header-height;
+	left: 0;
+	z-index: -1;
+
+	div#main{
+		margin: 0 auto;
+		padding: 0 10px;
+		width: $main-width;
+		text-align: left;
+		border-left: 2px solid rgb(230, 220, 220); 
+		border-right: 2px solid rgb(230, 220, 220); 
+
+		h3{
+			font-size: 1.6em;
+			color: $color1;
+			margin: 5px 0 10px;
+		}
+
+		div#content{
+			float: left;
+			width: $content-width;
+		}
+
+		div#content-full{
+			width: 100%;
+
+			textarea.form-textarea{
+				width: $main-width - 6;
+				overflow: auto;
+				resize: vertical;
+				border: 1.5px solid #000;
+			}
+
+			textarea.title-textarea{
+				height: 20px;
+			}
+
+			textarea.text-textarea{
+				height: 200px;
+			}
+		}
+
+		div.post{
+			padding: 10px;
+
+			a.read-more{
+				font-size: 0.9em;
+				text-decoration: none;
+				color: $color2;
+				text-transform: lowercase;
+				padding: 5px;
+				margin-left: -5px;
+			}
+
+			a.read-more:hover{
+				background-color: $color1-faded;
+			}
+
+			div.commentBox{
+				background-color: #EEE;
+				margin: 25px;
+				padding: 10px;
+				border-radius: 10px;
+				font-size: 0.8em;
+
+				span.comment-details{
+					color: $color2;
+				}
+
+				span.comment-author{
+					font-weight: bold;
+				}
+			}
+		}
+
+		div.post-info{
+			text-transform: lowercase;
+			font-size: 0.9em;
+			color: $color2;
+		}
+
+		div#comments{
+
+			div#commentForm{
+				textarea, input{
+					font-size: 0.9em;
+					border: 1.5px solid #000;
+					padding: 5px;
+				}
+
+				textarea{
+					width: $main-width - 56;
+					margin: 25px 25px 5px;
+					overflow: auto;
+					resize: vertical;
+					height: 50px;
+				}
+
+				input{
+					margin-left: 25px;
+					width: $main-width - 56 - 150;
+				}
+
+				button{
+					border: none;
+					background: none;
+					color: $color1;
+					width: 145px;
+					margin-left: 5px;
+					font-size: 0.9em;
+				}
+
+				button:hover{
+					color: $color2;
+				}
+			}
+			
+			div.comment{
+				margin: 25px 50px 0;
+				font-size: 0.9em;
+
+				span.comment-author{
+					font-weight: bold;
+				}
+
+				p{
+					margin: 15px 5px 5px 25px;
+				}
+			}
+
+		}
+
+		div#sidebar{
+			float: left;
+			width: $sidebar-width;
+		}
+	}
+}
+
+.action-button{
+	color: $color1;
+	text-decoration: none;
+	margin: 10px;
+	padding: 5px;
+	display: block;
+	text-transform: lowercase;
+	background-color: transparent;
+	border: none;
+	font-family: Raleway;
+	font-size: 1em;
+}
+
+div.status {
+    text-transform: lowercase;
+    font-size: 0.9em;
+    margin: 10px 0;
+    color: $color2;
+}
+
+.action-button:hover{
+	background-color: $color1-faded;
+}
+
+#loadMore{
+	display: block;
+	text-align: center;
+	color: $color1;
+	margin: 20px;
+	font-size: 0.9em;
+}
+
+#loadMore::after{
+	content: "\f078";
+	display: block;
+	margin-bottom: 5px;
+	margin-top: 0;
+	transition: 0.25s;
+	font-family: FontAwesome;
+}
+
+#loadMore:hover{
+	color: $color2;
+}
+
+#loadMore:hover::after{
+	color: $color2;
+	margin-top: 5px;
+	margin-bottom: 0;
+}
+
+div.clear{
+	clear: both;
+}
+
+hr{
+	border: 0.5px solid rgb(180, 170, 170);
+}
+
+textarea, input, button{
+	font-family: Raleway;
+}
+
+/* About Page */
+
+div.about-pic, div.about-desc{
+	float: left;
+	margin: 30px 0;
+}
+
+div.about-pic{
+	width: 200px;
+}
+
+div.about-desc{
+	width: calc(100% - 200px);
+	text-align: justify;
+}
