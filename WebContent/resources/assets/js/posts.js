@@ -17,7 +17,6 @@ $(document).ready(function() {
 				var html = "";
 				for(x in a ) {
 					var post = a[x];
-					console.log("inserting");
 					html += "<div class=\"post\">\n" + 
 					"<h3>" + post.title + "</h3>" + 
 					"<div class=\"post-info\">" + 

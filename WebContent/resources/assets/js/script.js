@@ -21,3 +21,13 @@ function checkScroll(){
 		console.log("else " + $('#header').css('height'));
 	}
 }
+
+function checkStrEmpty(str) {
+	var error = true;
+	for(var i = 0; error && i < str.length; i++) {
+		if( str.charAt(i) != " " ) {
+			error = false;
+		}
+	}
+	return error;
+}

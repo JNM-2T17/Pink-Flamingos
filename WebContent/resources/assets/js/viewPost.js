@@ -9,15 +9,16 @@ $(document).ready(function() {
 	$("#postComment").click(function() {
 		var author = $("#author").val();
 		var comment = $("#commentArea").val();
-		if( author.length == 0 || comment.length == 0 ) {
-			var message = "";
-			if( author.length == 0 ) {
-				message += "Author cannot be empty.";
-			}
-			
-			if( comment.length == 0 ) {
-				message += (message.length == 0 ? "" : "\n") + "Comment cannot be empty";
-			}
+		var message = "";
+		
+		if( checkStrEmpty(author) || author.length == 0 ) {
+			message += "Author cannot be empty.";
+		}
+		
+		if( checkStrEmpty(comment) || comment.length == 0 ) {
+			message += (message.length == 0 ? "" : "\n") + "Comment cannot be empty";
+		}
+		if( message.length > 0 ) {
 			//change this to modal
 			alert(message);
 		} else {
