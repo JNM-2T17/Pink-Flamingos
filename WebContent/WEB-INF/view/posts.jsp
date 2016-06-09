@@ -17,8 +17,7 @@
 	 					<c:if test="${not empty post.topComment }">
 	 					<div class="commentBox">
 	 						<c:set var="com" value="${post.topComment }" />
-	 						<h5>${com.author }</h5>
-	 						<h6>${com.date }</h6>
+	 						<span class="comment-details"><span class="comment-author">${com.author }</span> &bull; <span class="comment-date">${com.date }</span></span>
 	 						<p>${com.content }</p>
 	 					</div>
 	 					</c:if>

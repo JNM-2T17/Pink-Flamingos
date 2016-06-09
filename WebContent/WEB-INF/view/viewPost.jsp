@@ -4,22 +4,30 @@
 
 <jsp:include page="header.jsp"/>
 	<div id="mainContent">
-		<!-- temporary -->
-		<input id="postId" type="hidden" value="${post.id }"/>
-		<input id="commentCtr" type="hidden" value="${commentCtr }"/>
-		<h2>${post.title }</h2>
-		<h3>${post.author }</h3>
-		<p>${post.content }</p>
-	
-		<script src="<c:url value="resources/assets/js/viewPost.js"/>"></script>
-		<div id="comments">
-			<div id="commentForm">
-				<input id="author" /><br/>
-				<textarea id="commentArea"></textarea><br/>
-				<button id="postComment">Post Comment</button>
+		<div id="content-full">
+			<div class="post">
+				<h3>${post.title }</h3>
+				<div class="post-info">
+					${post.author }<br/>
+					${post.date }<br />
+				</div>
+
+				<p>${post.content }</p>
 			</div>
-			<div id="commentList">
-				<span id="bottomSpan"><a id="loadMore">Load More</a></span>
+			<input id="postId" type="hidden" value="${post.id }"/>
+			<input id="commentCtr" type="hidden" value="${commentCtr }"/>
+
+			<hr>
+		
+			<script src="<c:url value="resources/assets/js/viewPost.js"/>"></script>
+			<div id="comments">
+				<div id="commentForm">
+					<textarea id="commentArea" placeholder="Comment"></textarea>
+					<input id="author" placeholder="Name"/> <button id="postComment">Post Comment</button>
+				</div>
+				<div id="commentList">
+					<span id="bottomSpan"><a id="loadMore">Load More</a></span>
+				</div>
 			</div>
 		</div>
 	</div>
