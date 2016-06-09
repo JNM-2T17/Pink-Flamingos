@@ -36,8 +36,8 @@ $(document).ready(function() {
 						$("#commentArea").val("");
 						//TODO: prepend html for comment
 						$("#commentList").prepend("<div class=\"comment\">" + 
-													"<h5>" + a.author + "</h5>" + 
-													"<h6>" + a.date + "</h6>" +
+													"<span class=\"comment-author\">" + a.author + "</span> &bull; " + 
+													"<span class=\"comment-date\">" + a.date + "</span>" +
 													"<p>" + a.content + "</p>" + 
 													"</div>");
 					} else {
@@ -79,10 +79,10 @@ function loadPosts(pageNo) {
 				}
 				
 				html += "<div class=\"comment\">" + 
-				"<h5>" + com.author + "</h5>" + 
-				"<h6>" + com.date + "</h6>" +
-				"<p>" + com.content + "</p>" + 
-				"</div>";
+													"<span class=\"comment-author\">" + com.author + "</span> &bull; " + 
+													"<span class=\"comment-date\">" + com.date + "</span>" +
+													"<p>" + com.content + "</p>" + 
+													"</div>";
 			}
 			$("#bottomSpan").before(html);
 		} 
