@@ -2,11 +2,48 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <jsp:include page="header.jsp"/>
-				<div id="content">
+				<div id="content-full">
 						<h3>About Us</h3>
 
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						<div class="about-pic"><img src="<c:url value="/resources/assets/images/PROSDEVaustin.png"/>"/></div>
+						<div class="about-desc">
+							<h4>Austin Fernandez</h4>
+							<p><i>Jon Pinkman</i></p>
+							<p>Men like Austin come along only once in a generation. Backed by a mountain of knowledge and a sea of experience, most people know him as very smart. Most people, however, don't know that Austin's most valuable trait is his big heart.</p>
+						</div>
+						<div class="clear"></div>
+						
+						<div class="about-pic"><img src="<c:url value="/resources/assets/images/PROSDEValds.png"/>"/></div>
+						<div class="about-desc">
+							<h4>Alden Luc Hade</h4>
+							<p><i>Alds</i></p>
+							<p>An all-around gamer with a plethora of experience in differing video game genres, Alds is a man not without a quick mind, which he uses to pull off the right jokes at the right time.</p>
+						</div>
+						<div class="clear"></div>
 
-						<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+						<div class="about-pic"><img src="<c:url value="/resources/assets/images/PROSDEVmatias.png"/>"/></div>
+						<div class="about-desc">
+							<h4>Angelo Matias</h4>
+							<p><i>Gelo</i></p>
+							<p>A renowned expert in strategy games such as the XCOM and Total War games, Angelo, or "Gelo" as he is known to his friends, is a gamer you want on your side.</p>
+						</div>
+						<div class="clear"></div>
+
+						<div class="about-pic"><img src="<c:url value="/resources/assets/images/PROSDEVclarese.png"/>"/></div>
+						<div class="about-desc">
+							<h4>Clarisse Poblete</h4>
+							<p><i>Clar</i></p>
+							<p>She may not stand taller than you, but in a room full of remarkable people, Clar sure does stand out. As pretty as she is smart, Clar is one person you're sure to remember.</p>
+						</div>
+						<div class="clear"></div>
+
+						<div class="about-pic"><img src="<c:url value="/resources/assets/images/PROSDEVmatias.png"/>"/></div>
+						<div class="about-desc">
+							<h4>Kenneth Wang</h4>
+							<p><i>Kwang</i></p>
+							<p>Kenneth's silent demeanor and propensity to be glued to his screen belies his character. He is incredibly smart and witty, and most dangerous of all, he simply DOES NOT give a fuck.</p>
+							<p>Pogi si Kenneth Wang</p>
+						</div>
+						<div class="clear"></div>
 				</div>
 <jsp:include page="footer.jsp"/>
