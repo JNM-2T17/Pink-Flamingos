@@ -37,7 +37,7 @@
 						</div>
 						<div class="clear"></div>
 
-						<div class="about-pic"><img src="<c:url value="/resources/assets/images/PROSDEVmatias.png"/>"/></div>
+						<div class="about-pic"><img src="<c:url value="/resources/assets/images/PROSDEVwang.png"/>"/></div>
 						<div class="about-desc">
 							<h4>Kenneth Wang</h4>
 							<p><i>Kwang</i></p>
