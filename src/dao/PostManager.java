@@ -120,7 +120,7 @@ public class PostManager {
 									,sb.toString().replaceAll("\n","<br/>"),rs.getTimestamp("dateAdded"));
 				sql = "SELECT id, author, content, dateAdded "
 						+ "FROM ag_comment "
-						+ "WHERE post_id = ? "
+						+ "WHERE post_id = ? AND status = 1 "					
 						+ "ORDER BY dateAdded DESC "
 						+ "LIMIT 1";
 				ps = con.prepareStatement(sql);

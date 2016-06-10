@@ -28,10 +28,9 @@ $(document).ready(function() {
 					var com = post.topComment;
 					if( com ) {
 						html += "<div class=\"commentBox\">" + 
-						"<h5>" + com.author + "</h5>" + 
-						"<h6>" + com.date + "</h6>" + 
-						"<p>" + com.content + "</p>" + 
-						"</div>";
+ 						"<span class=\"comment-details\"><span class=\"comment-author\">" + com.author + "</span> &bull; <span class=\"comment-date\">" + com.date + "</span></span>" + 
+ 						"<p>" + com.content + "</p>" + 
+ 						"</div>";
 					}
 					html += "</div><hr/>";
 				}	
