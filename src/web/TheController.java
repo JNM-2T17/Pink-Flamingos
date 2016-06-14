@@ -146,17 +146,21 @@ public class TheController {
 	public void register(@RequestParam(value="username") String username,
 					  @RequestParam(value="password") String password,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User result = UserManager.addUser(username,password);
-		if( result != null ) {
-			request.getSession().setAttribute("session_user", result);
-			Cookie c = new Cookie("session_user","" + result.getId());
-			c.setMaxAge(172800);
-			response.addCookie(c);
-		} else {
-			request.setAttribute("error","Registration Failed");
+		try {
+			User result = UserManager.addUser(username,password);
+			if( result != null ) {
+				request.getSession().setAttribute("session_user", result);
+				Cookie c = new Cookie("session_user","" + result.getId());
+				c.setMaxAge(172800);
+				response.addCookie(c);
+			} else {
+				request.setAttribute("error","Registration Failed");
+			}
+		} catch( Exception e ) {
+			request.setAttribute("error", e.getMessage());
 		}
 	
-		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request, response);
+		home(request,response);
 	}
 	
 	@RequestMapping("/ViewPost")

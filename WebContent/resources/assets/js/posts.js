@@ -3,6 +3,12 @@ var pageNo = 1;
 
 $(document).ready(function() {
 	maxPage = Math.ceil($("#postCtr").val() * 1 / 5);
+	var error = $("#error").val();
+	console.log(error + " IS THE ERROR");
+	console.log("HELLO!!!!");
+	if( error ) {
+		alert(error);
+	}
 	
 	$("#loadMore").click(function() {
 		pageNo++;
