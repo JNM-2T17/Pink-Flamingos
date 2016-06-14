@@ -63,6 +63,15 @@ public class TheController {
 		response.getWriter().print((new Gson()).toJson(result));
 	}
 	
+	@RequestMapping("/searchPosts")
+	@ResponseBody
+	public void searchPosts(@RequestParam(value="search") String search, 
+						HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		Post[] result = PostManager.searchPost(search);
+		response.getWriter().print((new Gson()).toJson(result));
+	}
+	
 	@RequestMapping("/LoadComments")
 	@ResponseBody
 	public void loadComments(   @RequestParam(value="postId") int postId,

@@ -73,6 +73,82 @@ public class PostManager {
 					
 	}
 	
+	public static Post[] searchPost(String search)
+	{
+		String sql = "SELECT * FROM ag_post WHERE title LIKE ? AND author LIKE ? AND status = 1";
+		Connection con = DBManager.getInstance().getConnection();
+		try {
+
+			search = "%" + search + "%";
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setString(1,search);
+			ps.setString(2,search);
+			ResultSet rs = ps.executeQuery();
+			
+			ArrayList<Post> posts = new ArrayList<Post>();
+			
+			while(rs.next())
+			{
+				String content = rs.getString("content");
+				
+				//truncate content
+				String[] array = content.split(" ");
+				
+				int numChar = 0;
+				int i=0;
+				StringBuilder sb = new StringBuilder();
+				
+				if(array.length != 0)
+				while(numChar + array[i].length() <= 150)
+				{
+					sb.append(array[i] + " ");
+					numChar = numChar + array[i].length() + 1;
+					i++;
+					
+					if(i == array.length)
+						break;
+				}
+				
+				int remainingChar = 150-numChar;
+				
+				if(i < array.length)
+				if(remainingChar >= array[i].length()/2)
+				{
+					sb.append(array[i]);
+				}
+
+				Post p = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("author")
+									,sb.toString().replaceAll("\n","<br/>"),rs.getTimestamp("dateAdded"));
+				sql = "SELECT id, author, content, dateAdded "
+						+ "FROM ag_comment "
+						+ "WHERE post_id = ? "
+						+ "ORDER BY dateAdded DESC "
+						+ "LIMIT 1";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, p.getId());
+				ResultSet rs2 = ps.executeQuery();
+				if( rs2.next() ) {
+					Comment c = new Comment(rs2.getInt("id"),rs2.getString("author")
+										,rs2.getString("content"),rs2.getTimestamp("dateAdded"));
+					p.setTopComment(c);
+				}
+				posts.add(p);
+			}	
+			return posts.toArray(new Post[0]);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+		
+		
+	}
+	
 	public static Post[] getPosts(int pageNo) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();
