@@ -83,7 +83,7 @@ div#topbar{
 	}
 }
 
-div#login{
+div.loginBox{
 	z-index: 30;
 	position: fixed;
 		top: $topbar-height + 20px;
@@ -112,7 +112,7 @@ div#login{
 		outline: none;
 	}
 
-	#loginButtons{
+	.loginButtons{
 		text-align: right;
 		width: 230px;
 	}
@@ -124,7 +124,7 @@ div#login{
 		border: none;
 		text-transform: lowercase;
 
-		&#submit-user{
+		&.submit-user{
 			color: $color1;
 
 			&:hover{
@@ -132,7 +132,7 @@ div#login{
 			}
 		}
 
-		&#cancel-user{
+		&.cancel-user{
 			color: $color2;
 
 			&:hover{

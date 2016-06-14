@@ -4,6 +4,7 @@ $(document).ready(function(){
 
 	$("#login-button").click(function(){
 		$("#login").css("display", "block");
+		$("#signup").css("display", "none");
 		$("#signup-button").parent().removeClass("active");
 		$("#login-button").parent().addClass("active");
 		mode = 0;
@@ -11,7 +12,8 @@ $(document).ready(function(){
 	});
 
 	$("#signup-button").click(function(){
-		$("#login").css("display", "block");
+		$("#signup").css("display", "block");
+		$("#login").css("display", "none");
 		$("#login-button").parent().removeClass("active");
 		$("#signup-button").parent().addClass("active");
 		mode = 1;
@@ -20,9 +22,17 @@ $(document).ready(function(){
 });
 
 function setLoginListeners(){
-	$("#cancel-user").click(function(){
-		$("#login input").val("");
-		$("#login").css("display", "none");
+	var id;
+	if(mode == 0){
+		id = "login";
+	}
+	else{
+		id = "signup"
+	}
+
+	$("#" + id + " .cancel-user").click(function(){
+		$("#" + id + " .login input").val("");
+		$("#" + id).css("display", "none");
 		$("#login-button").parent().removeClass("active");
 		$("#signup-button").parent().removeClass("active");
 	})

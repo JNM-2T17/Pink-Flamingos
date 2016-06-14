@@ -25,25 +25,49 @@
 				<li>
 					<a href="/Pink_Flamingos/AboutUs">About Us</a>
 				</li>
+					<c:choose>
+						<c:when test="${empty sessionScope.session_user }">
 				<li>
 					<button id="login-button">Login</button>
 				</li>
 				<li>
 					<button id="signup-button">Sign Up</button>
 				</li>
+						</c:when>
+						<c:otherwise>
+				<li>
+					<a href="/Pink_Flamingos/logout">Logout ${sessionScope.session_user.username }</a>
+				</li>
+						</c:otherwise>
+					</c:choose>
 			</ul>
 			<div class="clear"></div>
 		</div>
 
-		<div id="login">
-			<div class="form-text">Username</div>
-			<input/>
-			<div class="form-text">Password</div>
-			<input/>
-			<div id="loginButtons">
-				<button id="cancel-user">Cancel</button>
-				<button id="submit-user">Submit</button>
-			</div>
+		<div id="login" class="loginBox">
+			<form action="login" method="post">
+				<div class="form-text" type="text" name="username">Username</div>
+				<input/>
+				<div class="form-text" type="password" name="password">Password</div>
+				<input/>
+				<div class="loginButtons">
+					<button type="button" class="cancel-user">Cancel</button>
+					<button type="submit" class="submit-user">Login</button>
+				</div>
+			</form>
+		</div>
+
+		<div id="signup" class="loginBox">
+			<form action="signup" method="post">
+				<div class="form-text" type="text" name="username">Username</div>
+				<input/>
+				<div class="form-text" type="password" name="password">Password</div>
+				<input/>
+				<div class="loginButtons">
+					<button type="button" class="cancel-user">Cancel</button>
+					<button type="submit" class="submit-user">Sign Up</button>
+				</div>
+			</form>
 		</div>
 
 		<div id="header" class="noScroll">
