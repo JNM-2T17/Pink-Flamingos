@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Comment;
 import model.Post;
+import model.User;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import com.google.gson.Gson;
 
 import dao.CommentManager;
 import dao.PostManager;
+import dao.UserManager;
 
 @Controller
 public class TheController {
@@ -39,28 +42,15 @@ public class TheController {
 		request.getRequestDispatcher("WEB-INF/view/aboutUs.jsp").forward(request, response);
 	}
 	
-	@RequestMapping(value="/NewPost",method=RequestMethod.GET)
-	public void newPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request, response);
-	}
-	
-	@RequestMapping(value="/NewPost",method=RequestMethod.POST)
+	@RequestMapping("/AddComment")
 	@ResponseBody
-	public void newPost(@RequestParam(value="title") String title,
-						@RequestParam(value="author") String author,
-						@RequestParam(value="content") String content,
-						HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean status = PostManager.addPost(title,author,content);
+	public void addComment( @RequestParam(value="postId") int postId,
+							@RequestParam(value="author") int author,
+							@RequestParam(value="comment") String comment,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Comment c = CommentManager.addComment(postId, author, comment);
 		
-		request.setAttribute("status", status);
-		if( !status ) {
-			request.setAttribute("title",title);
-			request.setAttribute("author", author);
-			request.setAttribute("content", content);
-			request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request,response);
-		} else {
-			home(request,response);
-		}
+		response.getWriter().print((new Gson()).toJson(c));
 	}
 	
 	@RequestMapping("/getPosts")
@@ -71,22 +61,6 @@ public class TheController {
 		Post[] result = PostManager.getPosts(pageNo);
 		
 		response.getWriter().print((new Gson()).toJson(result));
-	}
-	
-	@RequestMapping("/ViewPost")
-	public void viewPost(@RequestParam(value="id") int id,
-			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//TODO: load post here
-		
-		int commentCtr = CommentManager.commentCount(id);
-		Post post = PostManager.getPost(id);
-		
-		//TEMPORARY
-		request.setAttribute("post", post);
-		request.setAttribute("commentCtr", commentCtr);
-		
-		request.getRequestDispatcher("WEB-INF/view/viewPost.jsp").forward(request,response);
 	}
 	
 	@RequestMapping("/LoadComments")
@@ -105,14 +79,99 @@ public class TheController {
 		response.getWriter().print((new Gson()).toJson(comments));
 	}
 	
-	@RequestMapping("/AddComment")
+	@RequestMapping("/login")
 	@ResponseBody
-	public void addComment( @RequestParam(value="postId") int postId,
-							@RequestParam(value="author") String author,
-							@RequestParam(value="comment") String comment,
+	public void login(@RequestParam(value="username") String username,
+					  @RequestParam(value="password") String password,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Comment c = CommentManager.addComment(postId, author, comment);
+		try {
+			User result = UserManager.login(username,password);
+			if( result != null ) {
+				request.getSession().setAttribute("session_user", result);
+				Cookie c = new Cookie("session_user","" + result.getId());
+				c.setMaxAge(172800);
+				response.addCookie(c);
+			} else {
+				request.setAttribute("error","Wrong Password");
+			}
+		} catch(Exception e) {
+			request.setAttribute("error", e.getMessage());
+		}
+		home(request,response);
+	}
+	
+	@RequestMapping("/logout")
+	public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getSession().invalidate();
+		Cookie[] cookies = request.getCookies();
+		for( Cookie c : cookies ) {
+			if(c.getName().equals("session_user") ) {
+				c.setMaxAge(0);
+				response.addCookie(c);
+				break;
+			}
+		}
+		home(request,response);
+	}
+	
+	@RequestMapping(value="/NewPost",method=RequestMethod.GET)
+	public void newPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if( request.getSession().getAttribute("session_user") == null ) {
+			home(request,response);
+		}
+		request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request, response);
+	}
+	
+	@RequestMapping(value="/NewPost",method=RequestMethod.POST)
+	@ResponseBody
+	public void newPost(@RequestParam(value="title") String title,
+						@RequestParam(value="author") int author,
+						@RequestParam(value="content") String content,
+						HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean status = PostManager.addPost(title,author,content);
 		
-		response.getWriter().print((new Gson()).toJson(c));
+		request.setAttribute("status", status);
+		if( !status ) {
+			request.setAttribute("title",title);
+			request.setAttribute("author", author);
+			request.setAttribute("content", content);
+			request.getRequestDispatcher("WEB-INF/view/newPost.jsp").forward(request,response);
+		} else {
+			home(request,response);
+		}
+	}
+	
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	@ResponseBody
+	public void register(@RequestParam(value="username") String username,
+					  @RequestParam(value="password") String password,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User result = UserManager.addUser(username,password);
+		if( result != null ) {
+			request.getSession().setAttribute("session_user", result);
+			Cookie c = new Cookie("session_user","" + result.getId());
+			c.setMaxAge(172800);
+			response.addCookie(c);
+		} else {
+			request.setAttribute("error","Registration Failed");
+		}
+	
+		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request, response);
+	}
+	
+	@RequestMapping("/ViewPost")
+	public void viewPost(@RequestParam(value="id") int id,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//TODO: load post here
+		
+		int commentCtr = CommentManager.commentCount(id);
+		Post post = PostManager.getPost(id);
+		
+		//TEMPORARY
+		request.setAttribute("post", post);
+		request.setAttribute("commentCtr", commentCtr);
+		
+		request.getRequestDispatcher("WEB-INF/view/viewPost.jsp").forward(request,response);
 	}
 }

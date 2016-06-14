@@ -23,6 +23,21 @@
 				<li>
 					<a href="/Pink_Flamingos/AboutUs">About Us</a>
 				</li>
+				<li>
+					<c:choose>
+						<c:when test="${empty sessionScope.session_user }">
+							<form action="login" method="post">
+								<input type="text" name="username"/>
+								<input type="password" name="password"/>
+								<input type="submit" value="Log In"/>
+							</form>
+						</c:when>
+						<c:otherwise>
+							Welcome, ${sessionScope.session_user.username }
+							<a href="/Pink_Flamingos/logout">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</li>
 			</ul>
 		</div>
 

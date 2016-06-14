@@ -21,10 +21,12 @@
 		
 			<script src="<c:url value="resources/assets/js/viewPost.js"/>"></script>
 			<div id="comments">
+				<c:if test="${not empty sessionScope.session_user }">
 				<div id="commentForm">
 					<textarea id="commentArea" placeholder="Comment"></textarea>
-					<input id="author" placeholder="Name"/> <button id="postComment">Post Comment</button>
+					<input id="author" type="hidden" value="${sessionScope.session_user.id }" /> <button id="postComment">Post Comment</button>
 				</div>
+				</c:if>
 				<div id="commentList">
 					<span id="bottomSpan"><a id="loadMore">Load More</a></span>
 				</div>

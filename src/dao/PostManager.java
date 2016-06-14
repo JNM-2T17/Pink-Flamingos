@@ -28,13 +28,13 @@ public class PostManager {
 		return 0;
 	}
 	
-	public static boolean addPost(String title, String author, String content) {
+	public static boolean addPost(String title, int author, String content) {
 		try {
 			Connection c = DBManager.getInstance().getConnection();
 			String sql = "INSERT INTO ag_post(title,author,content) VALUES (?,?,?)";
 			PreparedStatement ps = c.prepareStatement(sql);
 			ps.setString(1,title);
-			ps.setString(2,author);
+			ps.setInt(2,author);
 			ps.setString(3,content.replaceAll("\n","<br/>"));
 			ps.executeUpdate();
 			c.close();
@@ -52,9 +52,9 @@ public class PostManager {
 		try {
 		
 			Connection con = DBManager.getInstance().getConnection();
-			String sql = "SELECT id, title, author, content, dateAdded "
-						+ "FROM ag_post "
-						+ "WHERE id = ? AND status = 1";
+			String sql = "SELECT P.id, title, U.username AS author, content, P.dateAdded "
+						+ "FROM ag_post P INNER JOIN ag_user U ON P.author = U.id "
+						+ "WHERE P.id = ? AND P.status = 1 AND U.status = 1";
 	
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
@@ -76,9 +76,9 @@ public class PostManager {
 	public static Post[] getPosts(int pageNo) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();
-			String sql = "SELECT id, title, author, content,dateAdded " 
-						+ "FROM ag_post "
-						+ "WHERE status = 1 "
+			String sql = "SELECT P.id, title, U.username AS author, content,P.dateAdded " 
+						+ "FROM ag_post P INNER JOIN ag_user U ON P.author = U.id "
+						+ "WHERE P.status = 1 AND U.status = 1 "
 						+ "ORDER BY dateAdded DESC "
 						+ "LIMIT ?,5";
 			int postNo = (pageNo - 1) * 5;
@@ -118,10 +118,10 @@ public class PostManager {
 
 				Post p = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("author")
 									,sb.toString().replaceAll("\n","<br/>"),rs.getTimestamp("dateAdded"));
-				sql = "SELECT id, author, content, dateAdded "
-						+ "FROM ag_comment "
-						+ "WHERE post_id = ? AND status = 1 "					
-						+ "ORDER BY dateAdded DESC "
+				sql = "SELECT C.id, U.username AS author, content, C.dateAdded "
+						+ "FROM ag_comment C INNER JOIN ag_user U ON C.author = U.id "
+						+ "WHERE post_id = ? AND C.status = 1 AND U.status = 1 "					
+						+ "ORDER BY C.dateAdded DESC "
 						+ "LIMIT 1";
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, p.getId());
