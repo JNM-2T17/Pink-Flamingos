@@ -23,8 +23,7 @@
 			<div id="comments">
 				<c:if test="${not empty sessionScope.session_user }">
 				<div id="commentForm">
-					<h5>${sessionScope.session_user.username }</h5>
-					<textarea id="commentArea" placeholder="Comment"></textarea>
+					<textarea id="commentArea" placeholder="Add a public comment..."></textarea>
 					<input id="author" type="hidden" value="${sessionScope.session_user.id }" /> <button id="postComment">Post Comment</button>
 				</div>
 				</c:if>
