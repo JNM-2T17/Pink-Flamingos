@@ -42,7 +42,7 @@
 							<h4>Kenneth Wang</h4>
 							<p><i>Kwang</i></p>
 							<p>Kenneth's silent demeanor and propensity to be glued to his screen belies his character. He is incredibly smart and witty, and most dangerous of all, he simply DOES NOT give a fuck.</p>
-							<p>Pogi si Kenneth Wang</p>
+							<p><b><i>Pogi si Kenneth Wang</i></b></p>
 						</div>
 						<div class="clear"></div>
 				</div>

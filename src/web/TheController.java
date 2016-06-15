@@ -104,7 +104,7 @@ public class TheController {
 		} catch(Exception e) {
 			request.setAttribute("error", e.getMessage());
 		}
-		home(request,response);
+		homePage(request,response);
 	}
 	
 	@RequestMapping("/logout")
@@ -169,7 +169,7 @@ public class TheController {
 			request.setAttribute("error",e.getMessage());
 		}
 	
-		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request, response);
+		homePage(request,response);
 	}
 	
 	public void cookieCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
