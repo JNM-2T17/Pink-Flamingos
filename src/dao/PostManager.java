@@ -75,7 +75,10 @@ public class PostManager {
 	
 	public static Post[] searchPost(String search)
 	{
-		String sql = "SELECT * FROM ag_post WHERE title LIKE ? AND author LIKE ? AND status = 1";
+		String sql = "SELECT P.id, title, U.username AS author, content,P.dateAdded " 
+				+ "FROM ag_post P INNER JOIN ag_user U ON P.author = U.id "
+				+ "WHERE title LIKE ? AND author LIKE ? AND status = 1 "
+				+ "ORDER BY P.dateAdded DESC";
 		Connection con = DBManager.getInstance().getConnection();
 		try {
 
@@ -120,10 +123,10 @@ public class PostManager {
 
 				Post p = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("author")
 									,sb.toString().replaceAll("\n","<br/>"),rs.getTimestamp("dateAdded"));
-				sql = "SELECT id, author, content, dateAdded "
-						+ "FROM ag_comment "
-						+ "WHERE post_id = ? "
-						+ "ORDER BY dateAdded DESC "
+				sql = "SELECT C.id, U.username AS author, content, C.dateAdded "
+						+ "FROM ag_comment C INNER JOIN ag_user U ON C.author = U.id "
+						+ "WHERE post_id = ? AND C.status = 1 AND U.status = 1 "					
+						+ "ORDER BY C.dateAdded DESC "
 						+ "LIMIT 1";
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, p.getId());
