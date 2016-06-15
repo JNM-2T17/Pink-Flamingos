@@ -27,6 +27,12 @@ import dao.UserManager;
 public class TheController {
 	@RequestMapping("/")
 	public void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cookieCheck(request,response);
+		
+		homePage(request,response);
+	}
+	
+	public void homePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//new posts retrieval
 		int postCtr = PostManager.getPostCount();
 		Post[] posts = PostManager.getPosts(1);		
@@ -38,6 +44,8 @@ public class TheController {
 	
 	@RequestMapping("/AboutUs")
 	public void aboutUs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cookieCheck(request,response);
+		
 		request.getRequestDispatcher("WEB-INF/view/aboutUs.jsp").forward(request, response);
 	}
 	
@@ -110,11 +118,13 @@ public class TheController {
 				break;
 			}
 		}
-		home(request,response);
+		homePage(request,response);
 	}
 	
 	@RequestMapping(value="/NewPost",method=RequestMethod.GET)
 	public void newPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cookieCheck(request,response);
+		
 		if( request.getSession().getAttribute("session_user") == null ) {
 			home(request,response);
 		}
@@ -167,6 +177,7 @@ public class TheController {
 			if( c.getName().equals("session_user") ) {
 				int id = Integer.parseInt(c.getValue());
 				User u = UserManager.getUser(id);
+				request.getSession().setAttribute("session_user", u);
 			}
 		}
 	}
@@ -174,6 +185,8 @@ public class TheController {
 	@RequestMapping(value="/search",method=RequestMethod.GET)
 	public void search(@RequestParam(value="query") String query,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cookieCheck(request,response);
+		
 		//new posts retrieval
 		int postCtr = PostManager.getPostCount(query);
 		Post[] posts = PostManager.searchPost(query,1);		
@@ -197,12 +210,11 @@ public class TheController {
 	public void viewPost(@RequestParam(value="id") int id,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//TODO: load post here
+		cookieCheck(request,response);
 		
 		int commentCtr = CommentManager.commentCount(id);
 		Post post = PostManager.getPost(id);
 		
-		//TEMPORARY
 		request.setAttribute("post", post);
 		request.setAttribute("commentCtr", commentCtr);
 		
