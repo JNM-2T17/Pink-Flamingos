@@ -28,6 +28,27 @@ public class PostManager {
 		return 0;
 	}
 	
+	public static int getPostCount(String query) {
+		try {
+			Connection con = DBManager.getInstance().getConnection();
+			String sql = "SELECT COUNT(P.id) postCount " 
+						+ "FROM ag_post P INNER JOIN ag_user U ON P.author = U.id "
+						+ "WHERE P.status = 1 AND U.status = 1 AND (title LIKE ? OR username LIKE ?)";
+			PreparedStatement ps = con.prepareStatement(sql);
+			query = "%" + query + "%";
+			ps.setString(1, query);
+			ps.setString(2, query);
+			ResultSet rs = ps.executeQuery();
+			
+			if( rs.next() ) {
+				return rs.getInt("postCount");
+			}
+		} catch( SQLException se ) {
+			se.printStackTrace();
+		}
+		return 0;
+	}
+	
 	public static boolean addPost(String title, int author, String content) {
 		try {
 			Connection c = DBManager.getInstance().getConnection();
@@ -71,6 +92,88 @@ public class PostManager {
 		
 		return post;
 					
+	}
+	
+	public static Post[] searchPost(String search,int page)
+	{
+		String sql = "SELECT P.id, title, U.username AS author, content,P.dateAdded " 
+				+ "FROM ag_post P INNER JOIN ag_user U ON P.author = U.id "
+				+ "WHERE (title LIKE ? OR username LIKE ?) AND P.status = 1 AND U.status = 1 "
+				+ "ORDER BY P.dateAdded DESC "
+				+ "LIMIT ?,5";
+		int start = (page - 1) * 5;
+		Connection con = DBManager.getInstance().getConnection();
+		try {
+
+			search = "%" + search + "%";
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setString(1,search);
+			ps.setString(2,search);
+			ps.setInt(3,start);
+			ResultSet rs = ps.executeQuery();
+			
+			ArrayList<Post> posts = new ArrayList<Post>();
+			
+			while(rs.next())
+			{
+				String content = rs.getString("content");
+				
+				//truncate content
+				String[] array = content.split(" ");
+				
+				int numChar = 0;
+				int i=0;
+				StringBuilder sb = new StringBuilder();
+				
+				if(array.length != 0)
+				while(numChar + array[i].length() <= 150)
+				{
+					sb.append(array[i] + " ");
+					numChar = numChar + array[i].length() + 1;
+					i++;
+					
+					if(i == array.length)
+						break;
+				}
+				
+				int remainingChar = 150-numChar;
+				
+				if(i < array.length)
+				if(remainingChar >= array[i].length()/2)
+				{
+					sb.append(array[i]);
+				}
+
+				Post p = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("author")
+									,sb.toString().replaceAll("\n","<br/>"),rs.getTimestamp("dateAdded"));
+				sql = "SELECT C.id, U.username AS author, content, C.dateAdded "
+						+ "FROM ag_comment C INNER JOIN ag_user U ON C.author = U.id "
+						+ "WHERE post_id = ? AND C.status = 1 AND U.status = 1 "					
+						+ "ORDER BY C.dateAdded DESC "
+						+ "LIMIT 1";
+				ps = con.prepareStatement(sql);
+				ps.setInt(1, p.getId());
+				ResultSet rs2 = ps.executeQuery();
+				if( rs2.next() ) {
+					Comment c = new Comment(rs2.getInt("id"),rs2.getString("author")
+										,rs2.getString("content"),rs2.getTimestamp("dateAdded"));
+					p.setTopComment(c);
+				}
+				posts.add(p);
+			}	
+			return posts.toArray(new Post[0]);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+		
+		
 	}
 	
 	public static Post[] getPosts(int pageNo) {
