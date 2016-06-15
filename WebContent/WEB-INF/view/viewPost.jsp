@@ -21,6 +21,7 @@
 		
 			<script src="<c:url value="resources/assets/js/viewPost.js"/>"></script>
 			<div id="comments">
+				<h2>Comments - ${commentCtr }</h2>
 				<c:if test="${not empty sessionScope.session_user }">
 				<div id="commentForm">
 					<textarea id="commentArea" placeholder="Add a public comment..."></textarea>
