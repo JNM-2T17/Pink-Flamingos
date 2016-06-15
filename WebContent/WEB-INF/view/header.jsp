@@ -17,7 +17,7 @@
 
 	<body>
 		<div id="topbar">
-			<input id="search"/>
+			<form action="search"><input id="search" name="query"/></form>
 			<ul id="topnav">
 				<li>
 					<a href="/Pink_Flamingos">Home</a>
