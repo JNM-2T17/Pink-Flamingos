@@ -141,7 +141,7 @@ public class TheController {
 		}
 	}
 	
-	@RequestMapping(value="/register",method=RequestMethod.POST)
+	@RequestMapping(value="/register")
 	@ResponseBody
 	public void register(@RequestParam(value="username") String username,
 					  @RequestParam(value="password") String password,
@@ -156,11 +156,42 @@ public class TheController {
 			} else {
 				request.setAttribute("error","Registration Failed");
 			}
-		} catch( Exception e ) {
-			request.setAttribute("error", e.getMessage());
+		} catch(Exception e) {
+			request.setAttribute("error",e.getMessage());
 		}
 	
-		home(request,response);
+		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request, response);
+	}
+	
+	public void cookieCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		for(Cookie c: request.getCookies()) {
+			if( c.getName().equals("session_user") ) {
+				int id = Integer.parseInt(c.getValue());
+				User u = UserManager.getUser(id);
+			}
+		}
+	}
+	
+	@RequestMapping(value="/search",method=RequestMethod.GET)
+	public void search(@RequestParam(value="query") String query,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//new posts retrieval
+		int postCtr = PostManager.getPostCount(query);
+		Post[] posts = PostManager.searchPost(query,1);		
+		
+		request.setAttribute("query", query);
+		request.setAttribute("postCtr", postCtr);
+		request.setAttribute("posts", posts);
+		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request,response);
+	}
+	
+	@RequestMapping(value="/search",method=RequestMethod.POST)
+	@ResponseBody
+	public void searchPosts(@RequestParam(value="query") String search,
+						@RequestParam(value="pageNo") int pageNo,
+						HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Post[] result = PostManager.searchPost(search,pageNo);
+		response.getWriter().print((new Gson()).toJson(result));
 	}
 	
 	@RequestMapping("/ViewPost")
