@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp"/>
 				<div id="content">
+				<input type="hidden" id="error" value="${error }"/>
+				<input type="hidden" id="query" value="${query }"/>
 	<c:forEach items="${posts }" var="post">
 					<div class="post">
 						<h3>${post.title }</h3>

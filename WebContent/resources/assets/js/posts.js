@@ -3,13 +3,23 @@ var pageNo = 1;
 
 $(document).ready(function() {
 	maxPage = Math.ceil($("#postCtr").val() * 1 / 5);
+	var error = $("#error").val();
+	if( error.length > 0 ) {
+		alert(error);
+	}
+
+	var query = $("#query").val();
+	query = query.length == 0 ? null : query;
 	
 	$("#loadMore").click(function() {
 		pageNo++;
 		$.ajax({
-			url:"getPosts",
+			url:query ? "search" : "getPosts",
 			method: "POST",
-			data : {
+			data : query ? {
+				query : query,
+				pageNo : pageNo
+			} : {
 				pageNo : pageNo
 			},
 			dataType : "json",

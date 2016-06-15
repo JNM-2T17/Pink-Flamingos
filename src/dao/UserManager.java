@@ -9,8 +9,11 @@ import model.BCrypt;
 import model.User;
 
 public class UserManager {
-	public static User addUser(String username, String password) {
+	public static User addUser(String username, String password) throws Exception {
 		try {
+			if( getUser(username) != null ) {
+				throw new Exception("Account Exists");
+			}
 			Connection con = DBManager.getInstance().getConnection();
 			String sql = "INSERT INTO ag_user(username,password) VALUES(?,?)";
 			String hash = BCrypt.hashpw(password,BCrypt.gensalt());
@@ -19,18 +22,43 @@ public class UserManager {
 			ps.setString(2, hash);
 			ps.execute();
 			
-			sql = "SELECT id, username FROM ag_user WHERE username = ? AND status = 1";
-			ps = con.prepareStatement(sql);
+			return getUser(username);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static User getUser(int id) {
+		try {
+			Connection con = DBManager.getInstance().getConnection();
+			String sql = "SELECT id, username FROM ag_user WHERE id = ? AND status = 1";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1,id);
+			ResultSet rs = ps.executeQuery();
+			
+			if( rs.next() ) {
+				return new User(rs.getInt("id"),rs.getString("username"));
+			}
+		} catch(SQLException se) {
+			se.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static User getUser(String username) {
+		try {
+			Connection con = DBManager.getInstance().getConnection();
+			String sql = "SELECT id, username FROM ag_user WHERE username = ? AND status = 1";
+			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1,username);
 			ResultSet rs = ps.executeQuery();
 			
 			if( rs.next() ) {
-				User u = new User(rs.getInt("id"),rs.getString("username"));
-			} else {
-				return null;
+				return new User(rs.getInt("id"),rs.getString("username"));
 			}
-		} catch(SQLException e) {
-			e.printStackTrace();
+		} catch(SQLException se) {
+			se.printStackTrace();
 		}
 		return null;
 	}

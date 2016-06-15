@@ -17,7 +17,7 @@
 
 	<body>
 		<div id="topbar">
-			<input id="search"/>
+			<form action="search"><input id="search" name="query"/></form>
 			<ul id="topnav">
 				<li>
 					<a href="/Pink_Flamingos">Home</a>
@@ -46,10 +46,10 @@
 
 		<div id="login" class="loginBox">
 			<form action="login" method="post">
-				<div class="form-text" type="text" name="username">Username</div>
-				<input/>
-				<div class="form-text" type="password" name="password">Password</div>
-				<input/>
+				<div class="form-text" >Username</div>
+				<input type="text" name="username"/>
+				<div class="form-text" >Password</div>
+				<input type="password" name="password"/>
 				<div class="loginButtons">
 					<button type="button" class="cancel-user">Cancel</button>
 					<button type="submit" class="submit-user">Login</button>
@@ -58,11 +58,11 @@
 		</div>
 
 		<div id="signup" class="loginBox">
-			<form action="signup" method="post">
-				<div class="form-text" type="text" name="username">Username</div>
-				<input/>
-				<div class="form-text" type="password" name="password">Password</div>
-				<input/>
+			<form action="register" method="post">
+				<div class="form-text" >Username</div>
+				<input type="text" name="username"/>
+				<div class="form-text" >Password</div>
+				<input type="password" name="password"/>
 				<div class="loginButtons">
 					<button type="button" class="cancel-user">Cancel</button>
 					<button type="submit" class="submit-user">Sign Up</button>

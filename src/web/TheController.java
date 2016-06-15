@@ -1,7 +1,6 @@
 package web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -28,6 +27,12 @@ import dao.UserManager;
 public class TheController {
 	@RequestMapping("/")
 	public void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cookieCheck(request,response);
+		
+		homePage(request,response);
+	}
+	
+	public void homePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//new posts retrieval
 		int postCtr = PostManager.getPostCount();
 		Post[] posts = PostManager.getPosts(1);		
@@ -39,6 +44,8 @@ public class TheController {
 	
 	@RequestMapping("/AboutUs")
 	public void aboutUs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cookieCheck(request,response);
+		
 		request.getRequestDispatcher("WEB-INF/view/aboutUs.jsp").forward(request, response);
 	}
 	
@@ -97,7 +104,7 @@ public class TheController {
 		} catch(Exception e) {
 			request.setAttribute("error", e.getMessage());
 		}
-		home(request,response);
+		homePage(request,response);
 	}
 	
 	@RequestMapping("/logout")
@@ -111,11 +118,13 @@ public class TheController {
 				break;
 			}
 		}
-		home(request,response);
+		homePage(request,response);
 	}
 	
 	@RequestMapping(value="/NewPost",method=RequestMethod.GET)
 	public void newPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cookieCheck(request,response);
+		
 		if( request.getSession().getAttribute("session_user") == null ) {
 			home(request,response);
 		}
@@ -141,34 +150,71 @@ public class TheController {
 		}
 	}
 	
-	@RequestMapping(value="/register",method=RequestMethod.POST)
+	@RequestMapping(value="/register")
 	@ResponseBody
 	public void register(@RequestParam(value="username") String username,
 					  @RequestParam(value="password") String password,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User result = UserManager.addUser(username,password);
-		if( result != null ) {
-			request.getSession().setAttribute("session_user", result);
-			Cookie c = new Cookie("session_user","" + result.getId());
-			c.setMaxAge(172800);
-			response.addCookie(c);
-		} else {
-			request.setAttribute("error","Registration Failed");
+		try {
+			User result = UserManager.addUser(username,password);
+			if( result != null ) {
+				request.getSession().setAttribute("session_user", result);
+				Cookie c = new Cookie("session_user","" + result.getId());
+				c.setMaxAge(172800);
+				response.addCookie(c);
+			} else {
+				request.setAttribute("error","Registration Failed");
+			}
+		} catch(Exception e) {
+			request.setAttribute("error",e.getMessage());
 		}
 	
-		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request, response);
+		homePage(request,response);
+	}
+	
+	public void cookieCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		for(Cookie c: request.getCookies()) {
+			if( c.getName().equals("session_user") ) {
+				int id = Integer.parseInt(c.getValue());
+				User u = UserManager.getUser(id);
+				request.getSession().setAttribute("session_user", u);
+			}
+		}
+	}
+	
+	@RequestMapping(value="/search",method=RequestMethod.GET)
+	public void search(@RequestParam(value="query") String query,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cookieCheck(request,response);
+		
+		//new posts retrieval
+		int postCtr = PostManager.getPostCount(query);
+		Post[] posts = PostManager.searchPost(query,1);		
+		
+		request.setAttribute("query", query);
+		request.setAttribute("postCtr", postCtr);
+		request.setAttribute("posts", posts);
+		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request,response);
+	}
+	
+	@RequestMapping(value="/search",method=RequestMethod.POST)
+	@ResponseBody
+	public void searchPosts(@RequestParam(value="query") String search,
+						@RequestParam(value="pageNo") int pageNo,
+						HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Post[] result = PostManager.searchPost(search,pageNo);
+		response.getWriter().print((new Gson()).toJson(result));
 	}
 	
 	@RequestMapping("/ViewPost")
 	public void viewPost(@RequestParam(value="id") int id,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//TODO: load post here
+		cookieCheck(request,response);
 		
 		int commentCtr = CommentManager.commentCount(id);
 		Post post = PostManager.getPost(id);
 		
-		//TEMPORARY
 		request.setAttribute("post", post);
 		request.setAttribute("commentCtr", commentCtr);
 		
