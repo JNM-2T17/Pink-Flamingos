@@ -29,6 +29,23 @@ public class UserManager {
 		return null;
 	}
 	
+	public static User getUser(int id) {
+		try {
+			Connection con = DBManager.getInstance().getConnection();
+			String sql = "SELECT id, username FROM ag_user WHERE id = ? AND status = 1";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1,id);
+			ResultSet rs = ps.executeQuery();
+			
+			if( rs.next() ) {
+				return new User(rs.getInt("id"),rs.getString("username"));
+			}
+		} catch(SQLException se) {
+			se.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static User getUser(String username) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();
