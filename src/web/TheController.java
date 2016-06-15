@@ -173,11 +173,13 @@ public class TheController {
 	}
 	
 	public void cookieCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		for(Cookie c: request.getCookies()) {
-			if( c.getName().equals("session_user") ) {
-				int id = Integer.parseInt(c.getValue());
-				User u = UserManager.getUser(id);
-				request.getSession().setAttribute("session_user", u);
+		if(request.getCookies() != null){
+			for(Cookie c: request.getCookies()) {
+				if( c.getName().equals("session_user") ) {
+					int id = Integer.parseInt(c.getValue());
+					User u = UserManager.getUser(id);
+					request.getSession().setAttribute("session_user", u);
+				}
 			}
 		}
 	}

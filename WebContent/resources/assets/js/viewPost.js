@@ -19,8 +19,8 @@ $(document).ready(function() {
 			message += (message.length == 0 ? "" : "\n") + "Comment cannot be empty";
 		}
 		if( message.length > 0 ) {
-			//change this to modal
-			alert(message);
+			$("#errorMessage").css("display", "block");
+			$("#errorMessage").html(message);
 		} else {
 			$.ajax({
 				url : "AddComment",

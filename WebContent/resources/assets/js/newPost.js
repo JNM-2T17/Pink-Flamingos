@@ -18,7 +18,8 @@ function checkInput() {
 	if( message.length == 0 ) {
 		return true;
 	} else {
-		alert(message);
+		$("#errorMessage").css("display", "block");
+		$("#errorMessage").html(message);
 		return false;
 	}
 }
