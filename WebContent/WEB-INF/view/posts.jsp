@@ -3,7 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp"/>
 				<div id="content">
-	<c:forEach items="${posts }" var="post">
+				<input type="hidden" id="error" value="${error }"/>
+				<input type="hidden" id="query" value="${query }"/>
+	<c:choose>
+		<c:when test="${postCtr > 0 }">
+			<c:forEach items="${posts }" var="post">
 					<div class="post">
 						<h3>${post.title }</h3>
 						<div class="post-info">
@@ -24,8 +28,13 @@
  					</div>
 
 					<hr>
-	</c:forEach>
+			</c:forEach>
 		<span id="bottomSpan"><a id="loadMore">Load More</a></span>
+		</c:when>
+		<c:otherwise>
+		<h3>No posts to show</h3>
+		</c:otherwise>
+	</c:choose>
 	</div>
 	
 	<input type="hidden" id="postCtr" value="${postCtr }" />

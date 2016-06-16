@@ -6,19 +6,20 @@ function checkInput() {
 	var message = "";
 	
 	if(checkStrEmpty(title)) { 
-			message += (message.length == 0 ? "" : "\n") +  "Title cannot be empty.";
+			message += (message.length == 0 ? "" : "<br/>") +  "Title cannot be empty.";
 	}
 	if(checkStrEmpty(author) ) { 
-			message += (message.length == 0 ? "" : "\n") +  "Author cannot be empty.";
+			message += (message.length == 0 ? "" : "<br/>") +  "Author cannot be empty.";
 	}
 	if(checkStrEmpty(content)) { 
-			message += (message.length == 0 ? "" : "\n") +  "Content cannot be empty.";
+			message += (message.length == 0 ? "" : "<br/>") +  "Content cannot be empty.";
 	}
 	
 	if( message.length == 0 ) {
 		return true;
 	} else {
-		alert(message);
+		$("#errorMessage").css("display", "block");
+		$("#errorMessage").html(message);
 		return false;
 	}
 }

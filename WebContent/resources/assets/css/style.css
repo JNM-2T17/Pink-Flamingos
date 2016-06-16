@@ -4,7 +4,8 @@
 body {
   font-family: Raleway;
   text-align: center;
-  margin: 0; }
+  margin: 0;
+  word-wrap: break-word; }
 
 div#topbar {
   width: 100%;
@@ -14,25 +15,102 @@ div#topbar {
   left: 0;
   z-index: 30;
   background-color: rgba(40, 40, 40, 0.8); }
+  div#topbar input#search {
+    float: left;
+    margin: 12px;
+    height: 26px;
+    width: 200px;
+    border: 2px #000 solid;
+    padding: 2px 24px 2px 5px;
+    box-sizing: border-box;
+    outline: none;
+    background-image: url("../images/search.png");
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: right 5px center; }
   div#topbar ul#topnav {
     list-style: none;
     text-align: right;
     padding: 0 10px 0 0;
-    margin: 0; }
+    margin: 0;
+    float: right; }
     div#topbar ul#topnav li {
       display: inline-block;
       padding: 14px 12px; }
-      div#topbar ul#topnav li a {
+      div#topbar ul#topnav li a, div#topbar ul#topnav li button {
         color: #FFF;
         text-decoration: none;
-        text-transform: lowercase; }
-      div#topbar ul#topnav li a:hover {
+        text-transform: lowercase;
+        font-size: 1em; }
+      div#topbar ul#topnav li button {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0; }
+      div#topbar ul#topnav li a:hover, div#topbar ul#topnav li button:hover {
         color: orange; }
+    div#topbar ul#topnav li.active a, div#topbar ul#topnav li.active button {
+      color: orange; }
+
+div.loginBox {
+  z-index: 30;
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  width: 250px;
+  background-color: rgba(40, 40, 40, 0.8);
+  box-sizing: border-box;
+  padding: 10px;
+  color: #FFF;
+  text-align: left;
+  display: none; }
+  div.loginBox div.form-text {
+    text-transform: lowercase;
+    margin-bottom: 5px; }
+  div.loginBox input {
+    display: block;
+    width: 230px;
+    border: 2px #000 solid;
+    box-sizing: border-box;
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 3px 5px;
+    outline: none; }
+  div.loginBox .loginButtons {
+    text-align: right;
+    width: 230px; }
+  div.loginBox button {
+    display: inline;
+    background: none;
+    font-size: 1em;
+    border: none;
+    text-transform: lowercase; }
+    div.loginBox button.submit-user {
+      color: orange; }
+      div.loginBox button.submit-user:hover {
+        color: #FFF; }
+    div.loginBox button.cancel-user {
+      color: #999; }
+      div.loginBox button.cancel-user:hover {
+        color: #FFF; }
+
+div#errorMessage {
+  z-index: 30;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 250px;
+  background-color: rgba(150, 0, 0, 0.7);
+  box-sizing: border-box;
+  padding: 10px;
+  color: #FFF;
+  font-size: 1em;
+  display: none; }
 
 div#header {
   width: 100%;
   height: 400px;
-  background: url("../img/header.png") center -100px;
+  background: url("../images/header.png") center -100px;
   position: fixed;
   top: 0;
   left: 0;
@@ -63,6 +141,7 @@ h1:hover {
 
 div#main-container {
   width: 100%;
+  height: calc(100% - 400px);
   background-color: #FFF;
   position: absolute;
   top: 400px;
@@ -72,6 +151,7 @@ div#main-container {
     margin: 0 auto;
     padding: 0 10px;
     width: 800px;
+    min-height: 100%;
     text-align: left;
     border-left: 2px solid #e6dcdc;
     border-right: 2px solid #e6dcdc; }
@@ -137,7 +217,8 @@ div#main-container {
       color: orange;
       width: 145px;
       margin-left: 5px;
-      font-size: 0.9em; }
+      font-size: 0.9em;
+      margin-bottom: 20px; }
     div#main-container div#main div#comments div#commentForm button:hover {
       color: #999; }
     div#main-container div#main div#comments div.comment {

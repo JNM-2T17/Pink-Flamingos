@@ -2,10 +2,12 @@ $header-height: 400px;
 $main-width:    800px;
 $content-width: 600px;
 $sidebar-width: 200px;
+$topbar-height: 50px;
 
 $color1: orange;
 $color1-faded: rgba(250, 180, 0, 0.5);
 $color2: #999;
+$bgColor1: rgba(40, 40, 40, 0.8);
 
 @font-face {
   font-family: 'Raleway';
@@ -16,44 +18,149 @@ body{
 	font-family: Raleway;
 	text-align: center;
 	margin: 0;
+	word-wrap: break-word;
 }
 
 div#topbar{
 	width: 100%;
-	height: 50px;
+	height: $topbar-height;
 	position: fixed;
-	top: 0;
-	left: 0;
+		top: 0;
+		left: 0;
 	z-index: 30;
-	background-color: rgba(40, 40, 40, 0.8);
+	background-color: $bgColor1;
+
+	input#search{
+		float: left;
+		margin: 12px;
+		height: 26px;
+		width: 200px;
+		border: 2px #000 solid;
+		padding: 2px 24px 2px 5px;
+		box-sizing: border-box;
+		outline: none;
+		background-image: url('../images/search.png');
+		background-size: 16px 16px;
+		background-repeat: no-repeat;
+		background-position: right 5px center;
+	}
 
 	ul#topnav{
 		list-style: none;
 		text-align: right;
 		padding: 0 10px 0 0;
 		margin: 0;
+		float: right;
 
 		li{
 			display: inline-block;
 			padding: 14px 12px;
 
-			a{
+			a, button{
 				color: #FFF;
 				text-decoration: none;
 				text-transform: lowercase;
+				font-size: 1em;
 			}
 
-			a:hover{
+			button{
+				background: none;
+				border: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			a:hover, button:hover{
+				color: $color1;
+			}
+		}
+
+		li.active{
+
+			a, button{
 				color: $color1;
 			}
 		}
 	}
 }
 
+div.loginBox{
+	z-index: 30;
+	position: fixed;
+		top: $topbar-height + 20px;
+		right: 20px;
+	width: 250px;
+	background-color: $bgColor1;
+	box-sizing: border-box;
+	padding: 10px;
+	color: #FFF;
+	text-align: left;
+	display: none;
+
+	div.form-text{
+		text-transform: lowercase;
+		margin-bottom: 5px;
+	}
+
+	input{
+		display: block;
+		width: 230px;
+		border: 2px #000 solid;
+		box-sizing: border-box;
+		height: 30px;
+		margin-bottom: 20px;
+		padding: 3px 5px;
+		outline: none;
+	}
+
+	.loginButtons{
+		text-align: right;
+		width: 230px;
+	}
+
+	button{
+		display: inline;
+		background: none;
+		font-size: 1em;
+		border: none;
+		text-transform: lowercase;
+
+		&.submit-user{
+			color: $color1;
+
+			&:hover{
+				color: #FFF;
+			}
+		}
+
+		&.cancel-user{
+			color: $color2;
+
+			&:hover{
+				color: #FFF;
+			}
+		}
+	}
+}
+
+div#errorMessage{
+	z-index: 30;
+	position: fixed;
+		bottom: 20px;
+		right: 20px;
+	width: 250px;
+	background-color: rgba(150, 0, 0, 0.7);
+	box-sizing: border-box;
+	padding: 10px;
+	color: #FFF;
+	font-size: 1em;
+	display: none;
+}
+
 div#header{
 	width: 100%;
 	height: $header-height;
-	background: url('../img/header.png') center -100px;
+	background: url('../images/header.png') center -100px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -89,6 +196,7 @@ h1:hover{
 
 div#main-container{
 	width: 100%;
+	height: calc(100% - 400px);
 	background-color: #FFF;
 	position: absolute;
 	top: $header-height;
@@ -99,6 +207,7 @@ div#main-container{
 		margin: 0 auto;
 		padding: 0 10px;
 		width: $main-width;
+		min-height: 100%;
 		text-align: left;
 		border-left: 2px solid rgb(230, 220, 220); 
 		border-right: 2px solid rgb(230, 220, 220); 
@@ -201,6 +310,7 @@ div#main-container{
 					width: 145px;
 					margin-left: 5px;
 					font-size: 0.9em;
+					margin-bottom: 20px;
 				}
 
 				button:hover{

@@ -4,28 +4,28 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 import model.Comment;
 
 public class CommentManager {
-	public static Comment addComment(int postId, String author, String comment) {
+	public static Comment addComment(int postId, int author, String comment) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();
 			String sql = "INSERT INTO ag_comment(post_id,author,content) VALUES (?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, postId);
-			ps.setString(2,author);
+			ps.setInt(2,author);
 			comment = comment.replaceAll("\n","<br/>");
 			ps.setString(3, comment);
 			ps.executeUpdate();
-			sql = "SELECT id,author,content,dateAdded "
-					+ "FROM ag_comment "
-					+ "WHERE author = ? AND content = ? AND post_id = ? AND status = 1";
+			sql = "SELECT C.id,U.username AS author,content,C.dateAdded "
+					+ "FROM ag_comment C INNER JOIN ag_user U ON C.author = U.id "
+					+ "WHERE author = ? AND content = ? AND post_id = ? AND C.status = 1 AND U.status = 1 "
+					+ "ORDER BY C.dateAdded DESC "
+					+ "LIMIT 1";
 			ps = con.prepareStatement(sql);
-			ps.setString(1, author);
+			ps.setInt(1, author);
 			ps.setString(2, comment);
 			ps.setInt(3, postId);
 			ResultSet rs = ps.executeQuery();
@@ -69,10 +69,10 @@ public class CommentManager {
 	public static Comment[] getComments(int postId, int pageNo, int idCap ) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();
-			String sql = "SELECT id, author, content, dateAdded "
-					+ "FROM ag_comment "
-					+ "WHERE post_id = ? AND id <= ? AND status = 1 "
-					+ "ORDER BY dateAdded DESC "
+			String sql = "SELECT C.id, U.username AS author, content, C.dateAdded "
+					+ "FROM ag_comment C INNER JOIN ag_user U ON C.author = U.id "
+					+ "WHERE post_id = ? AND C.id <= ? AND C.status = 1 AND U.status = 1 "
+					+ "ORDER BY C.dateAdded DESC "
 					+ "LIMIT ?,5";
 			int startIndex = (pageNo - 1) * 5;
 			PreparedStatement ps = con.prepareStatement(sql);

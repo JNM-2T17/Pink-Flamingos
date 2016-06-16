@@ -2,9 +2,11 @@ var postId = 0;
 var pageNo = 0;
 var idCap = -1;
 var maxPage = 0;
+var runningCtr = 0;
 $(document).ready(function() {
 	postId = $("#postId").val() * 1;
 	maxPage = Math.ceil($("#commentCtr").val() / 5.0);
+	runningCtr = $("#commentCtr").val() * 1;
 	
 	$("#postComment").click(function() {
 		var author = $("#author").val();
@@ -16,11 +18,11 @@ $(document).ready(function() {
 		}
 		
 		if( checkStrEmpty(comment) || comment.length == 0 ) {
-			message += (message.length == 0 ? "" : "\n") + "Comment cannot be empty";
+			message += (message.length == 0 ? "" : "<br/>") + "Comment cannot be empty";
 		}
 		if( message.length > 0 ) {
-			//change this to modal
-			alert(message);
+			$("#errorMessage").css("display", "block");
+			$("#errorMessage").html(message);
 		} else {
 			$.ajax({
 				url : "AddComment",
@@ -33,16 +35,16 @@ $(document).ready(function() {
 				dataType : "json",
 				success : function(a) {
 					if( a ) {
-						$("#author").val("");
 						$("#commentArea").val("");
-						//TODO: prepend html for comment
 						$("#commentList").prepend("<div class=\"comment\">" + 
 													"<span class=\"comment-author\">" + a.author + "</span> &bull; " + 
 													"<span class=\"comment-date\">" + a.date + "</span>" +
 													"<p>" + a.content + "</p>" + 
 													"</div>");
+						$("#counter").html("" + ++runningCtr);
 					} else {
-						alert("Comment failed to add.");
+						$("#errorMessage").css("display", "block");
+						$("#errorMessage").html(message);
 					}
 				}
 			});
