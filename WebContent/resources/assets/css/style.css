@@ -4,7 +4,8 @@
 body {
   font-family: Raleway;
   text-align: center;
-  margin: 0; }
+  margin: 0;
+  word-wrap: break-word; }
 
 div#topbar {
   width: 100%;
@@ -226,8 +227,7 @@ div#main-container {
       div#main-container div#main div#comments div.comment span.comment-author {
         font-weight: bold; }
       div#main-container div#main div#comments div.comment p {
-        margin: 15px 5px 5px 25px;
-        word-wrap: break-word; }
+        margin: 15px 5px 5px 25px; }
     div#main-container div#main div#sidebar {
       float: left;
       width: 200px; }
