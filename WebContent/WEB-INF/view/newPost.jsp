@@ -28,7 +28,7 @@
 						<hr>
 						<div class="form-desc">author</div>
 						${sessionScope.session_user.username }
-						<input type="hidden" name="author" value="${sessionScope.session_user.id }"/>
+						<input type="hidden" id="author" name="author" value="${sessionScope.session_user.id }"/>
 						<hr>
 						<div class="form-desc">text</div>
 						<textarea id="content" name="content" class="form-textarea text-textarea"></textarea>

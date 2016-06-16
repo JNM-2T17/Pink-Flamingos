@@ -49,7 +49,7 @@ public class UserManager {
 	public static User getUser(String username) {
 		try {
 			Connection con = DBManager.getInstance().getConnection();
-			String sql = "SELECT id, username FROM ag_user WHERE username = ? AND status = 1";
+			String sql = "SELECT id, username FROM ag_user WHERE username = BINARY ? AND status = 1";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1,username);
 			ResultSet rs = ps.executeQuery();
@@ -66,7 +66,7 @@ public class UserManager {
 	public static User login(String username, String password) throws Exception {		
 		try {
 			Connection con = DBManager.getInstance().getConnection();
-			String sql = "SELECT id, username, password FROM ag_user WHERE status = 1 AND username = ?";
+			String sql = "SELECT id, username, password FROM ag_user WHERE status = 1 AND username = BINARY ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1,username);
 			ResultSet rs = ps.executeQuery();

@@ -104,7 +104,7 @@ public class TheController {
 		} catch(Exception e) {
 			request.setAttribute("error", e.getMessage());
 		}
-		home(request,response);
+		homePage(request,response);
 	}
 	
 	@RequestMapping("/logout")
@@ -169,15 +169,17 @@ public class TheController {
 			request.setAttribute("error",e.getMessage());
 		}
 	
-		request.getRequestDispatcher("WEB-INF/view/posts.jsp").forward(request, response);
+		homePage(request,response);
 	}
 	
 	public void cookieCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		for(Cookie c: request.getCookies()) {
-			if( c.getName().equals("session_user") ) {
-				int id = Integer.parseInt(c.getValue());
-				User u = UserManager.getUser(id);
-				request.getSession().setAttribute("session_user", u);
+		if(request.getCookies() != null){
+			for(Cookie c: request.getCookies()) {
+				if( c.getName().equals("session_user") ) {
+					int id = Integer.parseInt(c.getValue());
+					User u = UserManager.getUser(id);
+					request.getSession().setAttribute("session_user", u);
+				}
 			}
 		}
 	}

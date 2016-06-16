@@ -93,6 +93,19 @@ div.loginBox {
       div.loginBox button.cancel-user:hover {
         color: #FFF; }
 
+div#errorMessage {
+  z-index: 30;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 250px;
+  background-color: rgba(150, 0, 0, 0.7);
+  box-sizing: border-box;
+  padding: 10px;
+  color: #FFF;
+  font-size: 1em;
+  display: none; }
+
 div#header {
   width: 100%;
   height: 400px;
@@ -201,7 +214,8 @@ div#main-container {
       color: orange;
       width: 145px;
       margin-left: 5px;
-      font-size: 0.9em; }
+      font-size: 0.9em;
+      margin-bottom: 20px; }
     div#main-container div#main div#comments div#commentForm button:hover {
       color: #999; }
     div#main-container div#main div#comments div.comment {

@@ -16,11 +16,11 @@ $(document).ready(function() {
 		}
 		
 		if( checkStrEmpty(comment) || comment.length == 0 ) {
-			message += (message.length == 0 ? "" : "\n") + "Comment cannot be empty";
+			message += (message.length == 0 ? "" : "<br/>") + "Comment cannot be empty";
 		}
 		if( message.length > 0 ) {
-			//change this to modal
-			alert(message);
+			$("#errorMessage").css("display", "block");
+			$("#errorMessage").html(message);
 		} else {
 			$.ajax({
 				url : "AddComment",
@@ -42,7 +42,8 @@ $(document).ready(function() {
 													"<p>" + a.content + "</p>" + 
 													"</div>");
 					} else {
-						alert("Comment failed to add.");
+						$("#errorMessage").css("display", "block");
+						$("#errorMessage").html(message);
 					}
 				}
 			});
