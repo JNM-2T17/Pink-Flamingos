@@ -69,6 +69,8 @@
 				</div>
 			</form>
 		</div>
+		
+		<div id="errorMessage"></div>
 
 		<div id="header" class="noScroll">
 			<a href="/Pink_Flamingos"><h1 class="bottom">Pink Flamingos</h1></a>

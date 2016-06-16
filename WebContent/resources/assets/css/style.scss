@@ -142,6 +142,20 @@ div.loginBox{
 	}
 }
 
+div#errorMessage{
+	z-index: 30;
+	position: fixed;
+		bottom: 20px;
+		right: 20px;
+	width: 250px;
+	background-color: rgba(150, 0, 0, 0.7);
+	box-sizing: border-box;
+	padding: 10px;
+	color: #FFF;
+	font-size: 1em;
+	display: none;
+}
+
 div#header{
 	width: 100%;
 	height: $header-height;
@@ -293,6 +307,7 @@ div#main-container{
 					width: 145px;
 					margin-left: 5px;
 					font-size: 0.9em;
+					margin-bottom: 20px;
 				}
 
 				button:hover{

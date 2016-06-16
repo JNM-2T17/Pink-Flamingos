@@ -4,8 +4,10 @@ var pageNo = 1;
 $(document).ready(function() {
 	maxPage = Math.ceil($("#postCtr").val() * 1 / 5);
 	var error = $("#error").val();
+	console.log("!ERROR! " + error + " !ERROR!");
 	if( error.length > 0 ) {
-		alert(error);
+		$("#errorMessage").css("display", "block");
+		$("#errorMessage").html(error);
 	}
 
 	var query = $("#query").val();
