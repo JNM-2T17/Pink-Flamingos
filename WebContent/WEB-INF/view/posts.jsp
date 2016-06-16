@@ -32,7 +32,7 @@
 		<span id="bottomSpan"><a id="loadMore">Load More</a></span>
 		</c:when>
 		<c:otherwise>
-		No posts to show
+		<h3>No posts to show</h3>
 		</c:otherwise>
 	</c:choose>
 	</div>

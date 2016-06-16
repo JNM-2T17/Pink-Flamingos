@@ -140,6 +140,7 @@ h1:hover {
 
 div#main-container {
   width: 100%;
+  height: calc(100% - 400px);
   background-color: #FFF;
   position: absolute;
   top: 400px;
@@ -149,6 +150,7 @@ div#main-container {
     margin: 0 auto;
     padding: 0 10px;
     width: 800px;
+    min-height: 100%;
     text-align: left;
     border-left: 2px solid #e6dcdc;
     border-right: 2px solid #e6dcdc; }
