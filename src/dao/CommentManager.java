@@ -21,7 +21,9 @@ public class CommentManager {
 			ps.executeUpdate();
 			sql = "SELECT C.id,U.username AS author,content,C.dateAdded "
 					+ "FROM ag_comment C INNER JOIN ag_user U ON C.author = U.id "
-					+ "WHERE author = ? AND content = ? AND post_id = ? AND C.status = 1 AND U.status = 1";
+					+ "WHERE author = ? AND content = ? AND post_id = ? AND C.status = 1 AND U.status = 1 "
+					+ "ORDER BY C.dateAdded DESC "
+					+ "LIMIT 1";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, author);
 			ps.setString(2, comment);
