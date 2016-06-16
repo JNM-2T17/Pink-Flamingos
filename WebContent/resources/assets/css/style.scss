@@ -195,6 +195,7 @@ h1:hover{
 
 div#main-container{
 	width: 100%;
+	height: calc(100% - 400px);
 	background-color: #FFF;
 	position: absolute;
 	top: $header-height;
@@ -205,6 +206,7 @@ div#main-container{
 		margin: 0 auto;
 		padding: 0 10px;
 		width: $main-width;
+		min-height: 100%;
 		text-align: left;
 		border-left: 2px solid rgb(230, 220, 220); 
 		border-right: 2px solid rgb(230, 220, 220); 
