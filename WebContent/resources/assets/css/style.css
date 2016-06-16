@@ -224,7 +224,8 @@ div#main-container {
       div#main-container div#main div#comments div.comment span.comment-author {
         font-weight: bold; }
       div#main-container div#main div#comments div.comment p {
-        margin: 15px 5px 5px 25px; }
+        margin: 15px 5px 5px 25px;
+        word-wrap: break-word; }
     div#main-container div#main div#sidebar {
       float: left;
       width: 200px; }
